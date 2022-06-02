@@ -30,7 +30,12 @@ export const LoginForm: FC<IProps> = ({handleSubmit}) => {
           rules={[{
             required: true,
             message: 'Заполните это поле'
-          }]}>
+          },
+            {
+              type: "email",
+              message: "Неверный формат почты"
+            }
+          ]}>
           <Input size={"large"}/>
         </Form.Item>
         <Form.Item

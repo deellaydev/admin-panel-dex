@@ -5,6 +5,8 @@ import {ILogin} from "../dto/auth";
 import {GlobalOutlined} from "@ant-design/icons";
 import styled from "styled-components";
 import artwork from "../assets/icons/artwork.png"
+import {useAppDispatch} from "../store/hooks/hooks";
+import {loginAction} from "../modules/auth/authAsyncAction";
 
 const menu = (
   <Menu
@@ -30,8 +32,10 @@ export const Login = () => {
   const { Paragraph, Title } = Typography
   const { Sider, Content, Header} = Layout
 
-  const getValues = (value: ILogin): void => {
+  const dispatch = useAppDispatch()
 
+  const getValues = async (value: ILogin) => {
+    await dispatch(loginAction(value))
   }
 
   return (
