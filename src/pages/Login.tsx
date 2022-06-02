@@ -1,11 +1,11 @@
-import React from 'react';
-import {Cascader, Col, Dropdown, Layout, Menu, Row, Typography} from "antd";
+import React, {useEffect} from 'react';
+import {Col, Dropdown, Layout, Menu, Row, Typography, message} from "antd";
 import {LoginForm} from "../common/components/LoginForm";
 import {ILogin} from "../dto/auth";
 import {GlobalOutlined} from "@ant-design/icons";
 import styled from "styled-components";
 import artwork from "../assets/icons/artwork.png"
-import {useAppDispatch} from "../store/hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../store/hooks/hooks";
 import {loginAction} from "../modules/auth/authAsyncAction";
 
 const menu = (
@@ -34,9 +34,31 @@ export const Login = () => {
 
   const dispatch = useAppDispatch()
 
+  const { user, error, loading } = useAppSelector((state) => state.authReducer)
+
   const getValues = async (value: ILogin) => {
     await dispatch(loginAction(value))
   }
+
+  const loginError = (errorText: string = '') => {
+    if (errorText !== '') {
+      message.error(errorText, 3);
+    }
+  }
+
+  const loginSuccess = () => {
+    if (user){
+      message.success("Вы авторизированы", 3)
+    }
+  }
+
+  useEffect(() => {
+    loginSuccess()
+  }, [user])
+
+  useEffect(() => {
+    loginError(error)
+  }, [error])
 
   return (
     <>
