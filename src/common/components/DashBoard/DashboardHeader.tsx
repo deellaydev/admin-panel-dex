@@ -38,9 +38,15 @@ const UserContainer = styled.div`
   width: 250px;
   height: 30px;
   align-items: center;
+  @media(max-width: 600px) {
+    display: none;
+  }
 `
 const FlexHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media(max-width: 600px) {
+    justify-content: end;
+  }
 `
