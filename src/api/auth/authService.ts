@@ -1,5 +1,4 @@
-import {ILogin} from "../dto/auth";
-import {post} from "../baseRequest";
+import {get, post} from "../baseRequest";
 
 
 export class authService {
@@ -10,6 +9,10 @@ export class authService {
 
     async registrationService(data: string) {
         return await post('/register', data);
+    }
+
+    async restorePassword(url: string) {
+        return await get(url);
     }
 
 }

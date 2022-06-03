@@ -1,26 +1,53 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from "styled-components";
 import Title from "antd/lib/typography/Title";
-import {Typography, Form, Input, Select, Checkbox, Button} from "antd";
-import value from "*.png";
+import {Typography, Form, Input, Select, Checkbox, Button, message} from "antd";
 import {useNavigate} from "react-router-dom";
+import {IRegister} from "../../../api/dto/auth";
+import {useAppDispatch, useAppSelector} from "../../../store/hooks/hooks";
+import {registrationAction} from "../../../modules/auth/authAsyncAction";
 
 export const RegisterForm = () => {
 
   const {Paragraph, Title} = Typography
   const {Option} = Select
 
+  const { user, error, loading } = useAppSelector((state) => state.authReducer)
+
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const getValues = () => {
-
+  const getValues = async (data: IRegister) => {
+    await dispatch(registrationAction(data)).then(() => navigate('/'))
   }
+
+  const registrationError = (errorText: string = '') => {
+    if (errorText !== '') {
+      message.error(errorText, 3);
+    }
+  }
+
+  const registrationSuccess = () => {
+    if (user){
+      message.success("Вы успешно зарегестрированы", 3)
+    }
+  }
+
+  useEffect(() => {
+    registrationSuccess()
+  }, [user])
+
+  useEffect(() => {
+    registrationError(error)
+  }, [error])
 
   return (
     <FormWrapper>
       <Title>Staff Pro</Title>
       <Title level={4}>Зарегестрируйтесь</Title>
-      <Form>
+      <Form
+        name={"registration"}
+        onFinish={getValues}>
         <Form.Item
           name={"email"}
           rules={[{

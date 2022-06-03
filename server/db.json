@@ -1,0 +1,15 @@
+{
+  "users": [
+    {
+      "email": "admin@gmail.com",
+      "password": "$2a$10$fM6MFiFq9E1HC8fQNdum4ep1rb9JPzBjqME860OInMdw3xqMHsU7G",
+      "surname": "Демян",
+      "name": "Владислав",
+      "patronymic": "Александрович",
+      "birthDay": "08.01.2002",
+      "telNumber": "+37368622868",
+      "sex": "Мужской",
+      "id": 1
+    }
+  ]
+}

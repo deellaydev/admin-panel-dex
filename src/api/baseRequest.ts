@@ -9,7 +9,7 @@ export const baseRequest = async (url:string, data: IRequestData, token: string 
     try {
 
         const tokenForHeaders = token ? {'Authorization': `Bearer ${token}`} : {}
-        const multiPartForHeaders = (typeof data.body === 'string') ? {'Content-Type': 'application/json;charset-utf8'} : {}
+        const multiPartForHeaders = (typeof data.body === 'string') ? {'Content-Type': 'application/json'} : {}
 
         const response = await fetch(url, {
             ...data,

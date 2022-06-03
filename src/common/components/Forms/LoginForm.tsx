@@ -5,19 +5,17 @@ import {ILogin} from "../../../api/dto/auth";
 import styled from "styled-components";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks/hooks";
 import {loginAction} from "../../../modules/auth/authAsyncAction";
+import {useNavigate} from "react-router-dom";
 
 export const LoginForm = () => {
 
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const { user, error, loading } = useAppSelector((state) => state.authReducer)
 
-  const getValues = async (value: ILogin) => {
-    const loginData = {
-      email: value.email,
-      password: value.password
-    }
-    await dispatch(loginAction(loginData))
+  const getValues = async ({email, password} : ILogin) => {
+    await dispatch(loginAction({email, password})).then(() => navigate('/'))
   }
 
   const loginError = (errorText: string = '') => {
@@ -40,7 +38,6 @@ export const LoginForm = () => {
     loginError(error)
   }, [error])
 
-
   return (
     <FormWrapper>
       <Title>Войти в Staff Pro</Title>
@@ -48,9 +45,6 @@ export const LoginForm = () => {
         name={"login"}
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
-        style={{
-          maxWidth: "464px"
-        }}
         layout={"vertical"}
         initialValues={{
           isRemember: true
@@ -91,7 +85,7 @@ export const LoginForm = () => {
               <Checkbox>Запомнить меня</Checkbox>
             </Form.Item>
 
-            <a>
+            <a onClick={() => navigate('/restorePassword')}>
               Забыли пароль?
             </a>
           </div>

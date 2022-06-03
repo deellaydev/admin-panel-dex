@@ -3,11 +3,27 @@ export interface ILogin {
   password: string;
 }
 
+export interface IRegister {
+  email: string;
+  surname: string;
+  name: string;
+  patronymic: string;
+  password: string;
+  dayOfBirth: string;
+  monthOfBirth: string;
+  yearOfBirth: string;
+  telNumber: string;
+  sex: string;
+}
+
 export interface IUserResponse {
-  id: number;
   email: string;
   password: string;
-  name: string;
   surname: string;
-  isAdmin: boolean;
+  name: string;
+  patronymic: string;
+  birthDay: string;
+  telNumber: string;
+  sex: string;
+  id: number;
 }
