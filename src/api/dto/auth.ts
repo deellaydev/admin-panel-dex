@@ -27,3 +27,8 @@ export interface IUserResponse {
   sex: string;
   id: number;
 }
+
+export interface IChangePassword {
+  email: string;
+  password: string;
+}

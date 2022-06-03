@@ -48,6 +48,9 @@ export const ForgetPasswordForm = () => {
           rules={[{
             type: "email",
             message: "Неверный формат почты"
+          }, {
+            required: true,
+            message: "Обязательное поле"
           }]}>
           <Input placeholder={"Email"}/>
         </Form.Item>

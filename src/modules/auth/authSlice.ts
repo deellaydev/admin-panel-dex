@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {IUserResponse} from "../../api/dto/auth";
-import {loginAction, registrationAction, restorePasswordAction} from "./authAsyncAction";
+import {changePasswordAction, loginAction, registrationAction, restorePasswordAction} from "./authAsyncAction";
 
 interface IAuthState {
   user: IUserResponse | null;
@@ -59,6 +59,18 @@ export const AuthSlice = createSlice({
       localStorage.setItem("restorePasswordUser", JSON.stringify(action.payload))
     });
     builder.addCase(restorePasswordAction.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(changePasswordAction.pending, (state) => {
+      state.loading = true;
+      state.error = undefined;
+    });
+    builder.addCase(changePasswordAction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.error = undefined;
+    })
+    builder.addCase(changePasswordAction.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     })

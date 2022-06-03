@@ -1,4 +1,4 @@
-import {get, post} from "../baseRequest";
+import {get, post, put} from "../baseRequest";
 
 
 export class authService {
@@ -13,6 +13,10 @@ export class authService {
 
     async restorePassword(url: string) {
         return await get(url);
+    }
+
+    async updatePassword(url: string, password: string) {
+        return await put(url, password);
     }
 
 }

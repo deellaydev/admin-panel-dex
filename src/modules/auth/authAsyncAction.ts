@@ -1,5 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {ILogin, IRegister, IUserResponse} from "../../api/dto/auth";
+import {IChangePassword, ILogin, IRegister, IUserResponse} from "../../api/dto/auth";
 import {authService} from "../../api/auth/authService";
 
 export const loginAction = createAsyncThunk(
@@ -43,6 +43,21 @@ export const restorePasswordAction = createAsyncThunk(
 
     if (response.length === 0) {
       throw new Error("Такого пользователя не существует")
+    }
+    return response;
+  }
+)
+
+export const changePasswordAction = createAsyncThunk(
+  "auth/changePassword",
+  async ({email, password}: IChangePassword) => {
+    const body = {
+      password: password
+    }
+    const response = new authService().updatePassword(`/users?email=${email}`, JSON.stringify(body))
+
+    if (!response) {
+      throw new Error("Пароль не сменён")
     }
     return response;
   }

@@ -44,4 +44,4 @@ export const post = (url: string, body: any, token?:string) => baseRequest(`${BA
 
 export const remove = (url: string, token: string) => baseRequest(`${BASE_URL}${url}`, {method: "DELETE"}, token)
 
-export const put = (url: string, body: any, token: string) => baseRequest(`${BASE_URL}${url}`, {method: "PUT", body}, token)
+export const put = (url: string, body: any, token?: string) => baseRequest(`${BASE_URL}${url}`, {method: "PUT", body}, token)
