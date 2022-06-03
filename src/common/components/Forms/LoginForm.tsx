@@ -1,23 +1,23 @@
 import React, {FC, useEffect} from 'react';
 import Title from "antd/lib/typography/Title";
 import {Button, Checkbox, Form, Input, message} from "antd";
-import {ILogin} from "../../dto/auth";
+import {ILogin} from "../../../api/dto/auth";
 import styled from "styled-components";
-import {useAppDispatch, useAppSelector} from "../../store/hooks/hooks";
-import {loginAction} from "../../modules/auth/authAsyncAction";
+import {useAppDispatch, useAppSelector} from "../../../store/hooks/hooks";
+import {loginAction} from "../../../modules/auth/authAsyncAction";
 
-interface IProps {
-  handleSubmit?: (data: ILogin) => void;
-}
-
-export const LoginForm: FC<IProps> = ({handleSubmit}) => {
+export const LoginForm = () => {
 
   const dispatch = useAppDispatch()
 
   const { user, error, loading } = useAppSelector((state) => state.authReducer)
 
   const getValues = async (value: ILogin) => {
-    await dispatch(loginAction(value))
+    const loginData = {
+      email: value.email,
+      password: value.password
+    }
+    await dispatch(loginAction(loginData))
   }
 
   const loginError = (errorText: string = '') => {
@@ -61,7 +61,7 @@ export const LoginForm: FC<IProps> = ({handleSubmit}) => {
           name={"email"}
           rules={[{
             required: true,
-            message: 'Заполните это поле'
+            message: "Обязательное поле"
           },
             {
               type: "email",
@@ -75,9 +75,9 @@ export const LoginForm: FC<IProps> = ({handleSubmit}) => {
           name={"password"}
           rules={[{
             required: true,
-            message: 'Заполните это поле'
+            message: "Обязательное поле"
           }]}>
-          <Input type={"password"} size={"large"}/>
+          <Input.Password size={"large"}/>
         </Form.Item>
         <Form.Item>
           <div  style={{

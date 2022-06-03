@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {IUserResponse} from "../../dto/auth";
+import {IUserResponse} from "../../api/dto/auth";
 import {loginAction} from "./authAsyncAction";
 import {log} from "util";
 

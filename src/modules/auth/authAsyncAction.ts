@@ -1,17 +1,17 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {ILogin} from "../../dto/auth";
-import {users} from "./users";
+import {ILogin} from "../../api/dto/auth";
+import {authService} from "../../api/auth/authService";
 
 export const loginAction = createAsyncThunk(
   "auth/signIn",
   async (data: ILogin) => {
     try {
 
-      const responce = users.users.filter(user => (user.email === data.email && user.password === data.password))[0]
-      if (!responce) {
+      const response = await new authService().loginService(JSON.stringify(data))
+      if (!response) {
         throw new Error('Такого пользователья не существует')
       }
-      return responce
+      return response
 
     } catch (e: any) {
       throw new Error(e.message)

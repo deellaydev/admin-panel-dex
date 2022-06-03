@@ -1,12 +1,12 @@
-import React, {useEffect} from 'react';
+import React, {FC, JSXElementConstructor, useEffect} from 'react';
 import styled from "styled-components";
 import {Col, Dropdown, Layout, Menu, message, Row, Typography} from "antd";
 import {GlobalOutlined} from "@ant-design/icons";
 import artwork from "../assets/icons/artwork.png";
 import {useAppDispatch, useAppSelector} from "../store/hooks/hooks";
-import {ILogin} from "../dto/auth";
+import {ILogin} from "../api/dto/auth";
 import {loginAction} from "../modules/auth/authAsyncAction";
-import { Outlet } from 'react-router-dom'
+import {Outlet, useLocation, useNavigate} from 'react-router-dom'
 
 const menu = (
   <Menu
@@ -26,9 +26,18 @@ const menu = (
     ]}/>
 )
 
-export const AuthLayout = () => {
+interface IProps {
+  children: JSX.Element
+}
+
+export const AuthLayout: FC<IProps> = ({children}) => {
 
   const { Paragraph, Title } = Typography
+
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  console.log(pathname);
 
   return (
     <>
@@ -62,11 +71,13 @@ export const AuthLayout = () => {
           </LeftSideWrapper>
         </Col>
         <Col span={18}>
-          <RegisterLink>
-            <Paragraph style={{marginBottom: "0"}}>Нет аккаунта? <a>Зарегестрироваться</a></Paragraph>
-          </RegisterLink>
+          { pathname === '/login' ?
+            <RegisterLink>
+              <Paragraph style={{marginBottom: "0"}}>Нет аккаунта? <a onClick={() => navigate('/register')}>Зарегестрироваться</a></Paragraph>
+            </RegisterLink>
+            : null}
           <FormWrapper>
-            <Outlet/>
+            {children}
           </FormWrapper>
         </Col>
       </Row>
