@@ -24,24 +24,27 @@ function getItem(
 }
 
 const items: MenuProps['items'] = [
-
   getItem('Dashboard', 'dashboard'),
-  getItem('Reports', 'reports', <StockOutlined />),
+  getItem('Reports', 'reports', <StockOutlined/>),
   getItem('Documents', 'documents', null, [
     getItem('Invoices', 'invoices'),
     getItem('Drafts', 'drafts'),
     getItem('Templates', 'templates'),
   ]),
-  getItem('Customers', 'customers', <UserOutlined />),
-  getItem('Settings', 'settings', <SettingOutlined />),
+  getItem('Customers', 'customers', <UserOutlined/>),
+  getItem('Settings', 'settings', <SettingOutlined/>),
   getItem('Help & Contact', 'help'),
-
 ];
 
 export const MenuComponent = () => {
 
   const handleNavigate = (pathArray: string[]) => {
     let path = '';
+
+    if (pathArray[0] === 'dashboard'){
+      navigate('/');
+      return;
+    }
 
     for (let i = pathArray.length - 1; i !== -1; i--) {
       path = path + '/' + pathArray[i]
@@ -53,8 +56,8 @@ export const MenuComponent = () => {
 
   return (
     <Menu
-      defaultSelectedKeys = {['1']}
-      defaultOpenKeys = {['dashboard']}
+      defaultSelectedKeys={['dashboard']}
+      defaultOpenKeys={['dashboard']}
       mode={"inline"}
       items={items}
       style={{

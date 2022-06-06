@@ -1,9 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {IInvoice} from "../../api/dto/invoices";
 import {addNewInvoices, getAllInvoices} from "./invoicesAsyncAction";
-import {at} from "json-server-auth";
-
-
 
 interface IInvoicesState {
   invoices: Array<IInvoice>

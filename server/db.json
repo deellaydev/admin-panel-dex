@@ -40,6 +40,76 @@
       "paymentDate": "17-05-2022",
       "isPayment": false,
       "id": 4
+    },
+    {
+      "nameInvoice": "Тестовый счёт 5",
+      "valueInvoice": "12452£",
+      "paymentDate": "23-05-2022",
+      "isPayment": true,
+      "id": 5
+    },
+    {
+      "nameInvoice": "Тестовый счёт 6",
+      "valueInvoice": "3425¥",
+      "paymentDate": "24-05-2022",
+      "isPayment": false,
+      "id": 6
+    },
+    {
+      "nameInvoice": "Тестовый счёт 7",
+      "valueInvoice": "1244£",
+      "paymentDate": "26-05-2022",
+      "isPayment": false,
+      "id": 7
+    },
+    {
+      "nameInvoice": "Тестовый счёт 8",
+      "valueInvoice": "5664375$",
+      "paymentDate": "28-05-2022",
+      "isPayment": true,
+      "id": 8
+    },
+    {
+      "nameInvoice": "Тестовый счёт 9",
+      "valueInvoice": "124532$",
+      "paymentDate": "30-05-2022",
+      "isPayment": false,
+      "id": 9
+    },
+    {
+      "nameInvoice": "Тестовый счёт 10",
+      "valueInvoice": "7457₣",
+      "paymentDate": "19-05-2022",
+      "isPayment": true,
+      "id": 10
+    },
+    {
+      "nameInvoice": "Тестовый счёт 11",
+      "valueInvoice": "312415₣",
+      "paymentDate": "17-05-2022",
+      "isPayment": false,
+      "id": 11
+    }
+  ],
+  "seekers": [
+    {
+      "email": "dadaya@gmail.com",
+      "fio": "Какой-то Там Соискатель",
+      "birthDay": "1.01.2002",
+      "telNumber": "+37368622868",
+      "sex": "Мужской",
+      "id": 1
+    }
+  ],
+  "employees": [
+    {
+      "email": "something@gmail.com",
+      "fio": "Кто-то Там Такой",
+      "birthDay": "19.01.1994",
+      "telNumber": "+37368622868",
+      "sex": "Мужской",
+      "post": "Глава",
+      "id": 1
     }
   ]
 }

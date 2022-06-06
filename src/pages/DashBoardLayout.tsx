@@ -27,6 +27,7 @@ const MenuWrapper = styled.div<{activeMenu: boolean}>`
   max-width: 200px;
   width: 100%;
   transition: all .5s;
+  z-index: 1;
   @media(max-width: 600px) {
     position: absolute;
     left: ${({activeMenu}) => activeMenu ? '0' : '-200px'};
@@ -41,10 +42,10 @@ const MenuButton = styled(MenuOutlined)`
   font-size: 24px;
   position: absolute;
   display: none;
+  z-index: 3;
   @media(max-width: 600px) {
     display: block;
     top: 15px;
     left: 15px;
-    z-index: 1;
   }
 `

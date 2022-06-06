@@ -16,6 +16,7 @@ import {NewPasswordForm} from "./modules/auth/components/NewPasswordForm";
 import {Dashboard} from "./common/components/DashBoard/Dashboard";
 import {Reports} from "./common/components/DashBoard/Reports";
 import {Invoices} from "./modules/invoices/components/Invoices";
+import {Customers} from "./modules/customers/components/Customers";
 
 export const App = () => {
   return (
@@ -23,12 +24,12 @@ export const App = () => {
       <GlobalStyle/>
       <Routes>
         <Route path={''} element={<ProtectedMainRoute><DashBoardLayout/></ProtectedMainRoute>}>
-          <Route path={'/dashboard'} element={<Dashboard/>}/>
+          <Route path={''} element={<Dashboard/>}/>
           <Route path={'/reports'} element={<Reports/>}/>
           <Route path={'/documents/invoices'} element={<Invoices/>}/>
           <Route path={'/documents/drafts'} element={<Reports/>}/>
           <Route path={'/documents/templates'} element={<Reports/>}/>
-          <Route path={'/customers'} element={<Reports/>}/>
+          <Route path={'/customers'} element={<Customers/>}/>
           <Route path={'/settings'} element={<Reports/>}/>
           <Route path={'/help'} element={<Reports/>}/>
         </Route>

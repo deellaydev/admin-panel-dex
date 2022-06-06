@@ -1,6 +1,6 @@
 import React, {FC, useRef, useState} from 'react';
 import styled from "styled-components";
-import {Alert, Button, DatePicker, Form, Input, message, Select} from "antd";
+import {Alert, Button, DatePicker, Form, Input, InputNumber, message, Select} from "antd";
 import moment from 'moment'
 import {useAppDispatch} from "../../../store/hooks/hooks";
 import {addNewInvoices} from "../invoicesAsyncAction";
@@ -27,12 +27,7 @@ interface IInvoiceForm {
   currency: string
 }
 
-interface IProps {
-  isActiveModal: boolean;
-  setActiveModal: () => void;
-}
-
-export const NewInvoicesForm: FC<IProps> = ({isActiveModal, setActiveModal}) => {
+export const NewInvoicesForm = () => {
 
   const dispatch = useAppDispatch()
 
@@ -54,8 +49,7 @@ export const NewInvoicesForm: FC<IProps> = ({isActiveModal, setActiveModal}) => 
   }
 
   return (
-    <FormWrapper isActive={isActiveModal}>
-      <CloseCircleOutlined style={{fontSize: "18px", position: "absolute", top: "10px", right: "10px", cursor: "pointer"}} onClick={setActiveModal}/>
+    <FormWrapper>
       <Form
         name={"newInvoices"}
         layout={"vertical"}
@@ -79,7 +73,7 @@ export const NewInvoicesForm: FC<IProps> = ({isActiveModal, setActiveModal}) => 
             required: true,
             message: "Обязательное поле"
           }]}>
-          <Input addonAfter={selectAfter} type={"number"}/>
+          <InputNumber addonAfter={selectAfter} type={"number"}/>
         </Form.Item>
         <Form.Item
           label={"Дата выплаты"}
@@ -99,17 +93,10 @@ export const NewInvoicesForm: FC<IProps> = ({isActiveModal, setActiveModal}) => 
   );
 };
 
-const FormWrapper = styled.div<{isActive: boolean}>`
+const FormWrapper = styled.div`
   width: 300px;
   text-align: center;
   height: 350px;
   padding: 25px;
-  background: #efe8e8;
-  border-radius: 15px;
-  position: absolute;
-  top: ${({isActive}) => isActive ? "-100px" : "-800px"};
-  left: 50%;
-  transform: translateX(-50%);
-  transition: .5s all;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15)
+  
 `

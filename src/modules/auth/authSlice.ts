@@ -18,7 +18,9 @@ export const AuthSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-
+    signOut (state){
+      state.user = null;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(loginAction.pending, (state) => {
@@ -73,8 +75,10 @@ export const AuthSlice = createSlice({
     builder.addCase(changePasswordAction.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
-    })
+    });
   }
 })
+
+export const {signOut} = AuthSlice.actions
 
 export default AuthSlice.reducer

@@ -7,8 +7,8 @@ export class InvoicesService {
     return await post('/invoices', data)
   }
 
-  async getInvoices (url?:string) {
-    return await get(url ? url : '/invoices')
+  async getAllInvoices () {
+    return await get( '/invoices')
   }
 
 }

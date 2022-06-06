@@ -11,8 +11,8 @@ export const addNewInvoices = createAsyncThunk(
 
 export const getAllInvoices = createAsyncThunk(
   "invoices/getAll",
-  async (url?:string) => {
-    return await new InvoicesService().getInvoices(url)
+  async () => {
+    return await new InvoicesService().getAllInvoices()
   }
 )
 

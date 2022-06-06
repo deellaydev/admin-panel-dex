@@ -3,17 +3,21 @@ import {BreadCrumbs} from "./BreadCrumbs";
 import {Button, Typography} from 'antd'
 import {useLocation, useNavigate} from "react-router-dom";
 import styled from "styled-components";
+import {useAppDispatch} from "../../../store/hooks/hooks";
+import {signOut} from "../../../modules/auth/authSlice";
 
 export const DashboardHeader = () => {
 
   const {Title, Paragraph} = Typography
   const location = useLocation().pathname.split('/')
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
   const user = JSON.parse(localStorage.getItem("user") || '').user
 
   const handeSignOut = () => {
     localStorage.removeItem("user")
+    dispatch(signOut())
     navigate('/login')
   }
 
