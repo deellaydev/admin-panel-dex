@@ -5,7 +5,7 @@ import {Typography, Form, Input, Select, Checkbox, Button, message} from "antd";
 import {useNavigate} from "react-router-dom";
 import {IRegister} from "../../../api/dto/auth";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks/hooks";
-import {registrationAction} from "../../../modules/auth/authAsyncAction";
+import {registrationAction} from "../authAsyncAction";
 
 export const RegisterForm = () => {
 

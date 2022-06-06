@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {Button, Form, Input, message, Typography} from "antd";
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks/hooks";
-import {restorePasswordAction} from "../../../modules/auth/authAsyncAction";
+import {restorePasswordAction} from "../authAsyncAction";
 
 interface IRestorePassword {
   email: string

@@ -11,5 +11,35 @@
       "sex": "Мужской",
       "id": 1
     }
+  ],
+  "invoices": [
+    {
+      "nameInvoice": "Тестовый счёт",
+      "valueInvoice": "10000$",
+      "paymentDate": "06-05-2022",
+      "isPayment": true,
+      "id": 1
+    },
+    {
+      "nameInvoice": "Тестовый счёт 2",
+      "valueInvoice": "120¥",
+      "paymentDate": "31-04-2022",
+      "isPayment": false,
+      "id": 2
+    },
+    {
+      "nameInvoice": "Тестовый счёт 3",
+      "valueInvoice": "1135¥",
+      "paymentDate": "09-05-2022",
+      "isPayment": true,
+      "id": 3
+    },
+    {
+      "nameInvoice": "Тестовый счёт 4",
+      "valueInvoice": "122222£",
+      "paymentDate": "17-05-2022",
+      "isPayment": false,
+      "id": 4
+    }
   ]
 }

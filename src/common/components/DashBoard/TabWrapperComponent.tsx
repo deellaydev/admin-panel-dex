@@ -1,0 +1,19 @@
+import React from 'react';
+import styled from "styled-components";
+
+export const TabWrapperComponent = ({children} : {children: JSX.Element}) => {
+  return (
+    <TabWrapper>
+      {children}
+    </TabWrapper>
+  );
+};
+const TabWrapper = styled.div` 
+  height: calc(100vh - 200px);
+  background: #fff;
+  border-radius: 15px;
+  position: absolute;
+  width: calc(100vw - 260px);
+  margin-top: 20px;
+  padding: 15px;
+`

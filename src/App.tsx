@@ -2,20 +2,20 @@ import React from 'react';
 import {GlobalStyle} from "./assets/style/GlobalStyle";
 import {Route, Routes} from "react-router-dom";
 import {AuthLayout} from "./pages/AuthLayout";
-import {LoginForm} from "./common/components/Forms/LoginForm";
-import {RegisterForm} from "./common/components/Forms/RegisterForm";
+import {LoginForm} from "./modules/auth/components/LoginForm";
+import {RegisterForm} from "./modules/auth/components/RegisterForm";
 import {DashBoardLayout} from "./pages/DashBoardLayout";
 import {
   ProtectedMainRoute,
   ProtectedAuthRoute,
   ProtectedRestoreRoute
 } from "./common/components/ProtectedRoute/ProtectedRoute";
-import {ForgetPasswordForm} from "./common/components/Forms/ForgetPasswordForm";
-import {RestorePassword} from "./common/components/Forms/RestorePassword";
-import {NewPasswordForm} from "./common/components/Forms/NewPasswordForm";
+import {ForgetPasswordForm} from "./modules/auth/components/ForgetPasswordForm";
+import {RestorePassword} from "./modules/auth/components/RestorePassword";
+import {NewPasswordForm} from "./modules/auth/components/NewPasswordForm";
 import {Dashboard} from "./common/components/DashBoard/Dashboard";
 import {Reports} from "./common/components/DashBoard/Reports";
-import {Invoices} from "./common/components/DashBoard/Invoices";
+import {Invoices} from "./modules/invoices/components/Invoices";
 
 export const App = () => {
   return (

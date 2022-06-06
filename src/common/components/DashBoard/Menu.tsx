@@ -58,7 +58,10 @@ export const MenuComponent = () => {
       mode={"inline"}
       items={items}
       style={{
-        paddingTop: "60px"
+        paddingTop: "60px",
+        width: "100%",
+        boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.15)",
+        height: "100%"
       }}
       onClick={(e) => handleNavigate(e.keyPath)}
     />

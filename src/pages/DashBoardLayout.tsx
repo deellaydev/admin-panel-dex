@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {MenuComponent} from "../common/components/DashBoard/Menu";
-import {Col, Menu, Row} from "antd";
 import {Outlet} from 'react-router-dom'
 import styled from "styled-components";
 import {MenuOutlined} from "@ant-design/icons";
@@ -36,6 +35,7 @@ const MenuWrapper = styled.div<{activeMenu: boolean}>`
 const OutletContainer = styled.div`
   width: 100%;
   height: 100vh;
+  background: #F0F2F5;
 `
 const MenuButton = styled(MenuOutlined)`
   font-size: 24px;

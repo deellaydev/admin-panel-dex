@@ -4,7 +4,7 @@ import {Button, Checkbox, Form, Input, message} from "antd";
 import {ILogin} from "../../../api/dto/auth";
 import styled from "styled-components";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks/hooks";
-import {loginAction} from "../../../modules/auth/authAsyncAction";
+import {loginAction} from "../authAsyncAction";
 import {useNavigate} from "react-router-dom";
 
 export const LoginForm = () => {

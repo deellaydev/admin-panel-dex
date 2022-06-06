@@ -2,7 +2,7 @@ import React from 'react';
 import styled from "styled-components";
 import {Button, Form, Input, Typography} from "antd";
 import {useAppDispatch} from "../../../store/hooks/hooks";
-import {changePasswordAction} from "../../../modules/auth/authAsyncAction";
+import {changePasswordAction} from "../authAsyncAction";
 
 interface IChangePassword {
   password: string;
