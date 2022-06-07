@@ -1,19 +1,21 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import styled from "styled-components";
 import Title from "antd/lib/typography/Title";
-import {Typography, Form, Input, Select, Checkbox, Button, message} from "antd";
-import {useAppDispatch, useAppSelector} from "../../../../store/hooks/hooks";
+import { Form, Input, Select, Button} from "antd";
+import {useAppDispatch} from "../../../../store/hooks/hooks";
 import {IEmployee} from "../../../../api/dto/customers";
 import {addNewSeeker} from "../../customersAsyncAction";
 
 export const NewSeekerForm = () => {
 
   const {Option} = Select
+  const [form] = Form.useForm()
 
   const dispatch = useAppDispatch();
 
   const getValues = async (data: IEmployee) => {
     dispatch(addNewSeeker(data))
+    form.resetFields();
   }
 
   return (
@@ -21,6 +23,7 @@ export const NewSeekerForm = () => {
       <Title>Staff Pro</Title>
       <Title level={4}>Добавить соискателя</Title>
       <Form
+        form={form}
         name={"registration"}
         onFinish={getValues}>
         <Form.Item

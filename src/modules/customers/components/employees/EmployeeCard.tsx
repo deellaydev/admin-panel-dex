@@ -22,6 +22,7 @@ export const EmployeeCard: FC<IProps> = ({employee, isModalVisible, setIsModalVi
     <Modal title={"Информация о сотруднике"} visible={isModalVisible} onCancel={handleCancel} footer={[
       <Popconfirm title="Вы уверены？" okText="Да" cancelText="Нет" onConfirm={async () => {
         await dispatch(deleteEmployee(employee?.id || -1))
+        await dispatch(getAllEmployees())
         setIsModalVisible(false)
       }}>
         <Button size={"large"} type={"primary"} key={"deleteEmployee"}>Удалить сотрудника</Button>

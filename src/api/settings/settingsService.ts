@@ -1,10 +1,10 @@
 import {IUserResponse} from "../dto/auth";
-import {post} from "../baseRequest";
+import {put} from "../baseRequest";
 
 export class SettingsService {
 
   async changeUserData(user: IUserResponse){
-    return await post(`/users/${user.id}`, JSON.stringify(user))
+    return await put(`/users/${user.id}`, JSON.stringify(user))
   }
 
 }

@@ -35,21 +35,21 @@ export const NewInvoicesForm: FC<IProps> = ({isModalVisible, handleCancel}) => {
   const dispatch = useAppDispatch()
 
   const addInvoice = async (values: IInvoiceForm) => {
-    const day = ('0' + values.paymentDate.date()).slice(-2)
-    const month = ('0' + values.paymentDate.month()).slice(-2)
-    const year = values.paymentDate.year()
-
-    const structuredDate = day + '-' + month + '-' + year
 
     const invoice = {
       nameInvoice: values.nameInvoice,
       valueInvoice: values.valueInvoice + values.currency,
-      paymentDate: structuredDate,
-      isPayment: false
+      paymentDate: moment(values.paymentDate).valueOf(),
+      isPayment: false,
+      isDue: false,
+      isArchived: false
     }
 
+    form.resetFields();
     await dispatch(addNewInvoices(invoice))
   }
+
+  const [form] = Form.useForm()
 
   return (
     <Modal title={"Добавить счёт"} visible={isModalVisible} onCancel={handleCancel} footer={[
@@ -57,6 +57,7 @@ export const NewInvoicesForm: FC<IProps> = ({isModalVisible, handleCancel}) => {
     ]}>
       <FormWrapper>
         <Form
+          form={form}
           name={"newInvoice"}
           id={"newInvoice"}
           layout={"vertical"}

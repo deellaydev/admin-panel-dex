@@ -5,6 +5,7 @@ import {getAllSeekers} from "../../customersAsyncAction";
 import {Button, Modal} from "antd";
 import styled from "styled-components";
 import {NewSeekerForm} from "./NewSeekerForm";
+import {SeekersCard} from "./SeekersCard";
 
 export const seekersColumns = [
   {
@@ -62,6 +63,7 @@ export const Seekers = () => {
     <CustomersInner>
       <TableBlock>
         <TableComponent loading={loading} dataSource={seekers} columns={seekersColumns}/>
+        <SeekersCard seekers={seekers}/>
       </TableBlock>
       <StyledButton size={"large"} type={"primary"} onClick={showModal}>Добавить соискателя</StyledButton>
       <Modal title={"Добавить соискателя"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>

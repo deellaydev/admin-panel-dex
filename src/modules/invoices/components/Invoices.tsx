@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import {DashboardHeader} from "../../../common/components/DashBoard/DashboardHeader";
-import {Button, Modal, Tabs} from 'antd';
+import {Button, Modal, Pagination, Tabs} from 'antd';
 import {TabWrapperComponent} from "../../../common/components/DashBoard/TabWrapperComponent";
 import {NewInvoicesForm} from "./NewInvoicesForm";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks/hooks";
 import {getAllInvoices} from "../invoicesAsyncAction";
 import {TableComponent} from "../../../common/components/DashBoard/TableComponent";
 import {IInvoice} from "../../../api/dto/invoices";
+import moment from "moment";
+import {InvoicesCard} from "./InvoicesCard";
 
 export const invoicesColumns = [
   {
@@ -37,7 +39,12 @@ export const invoicesColumns = [
   {
     title: 'Дата выплаты',
     dataIndex: 'paymentDate',
-    key: 'paymentDate'
+    key: 'paymentDate',
+    render: (timestamp: number) => {
+      const date = new Date(timestamp);
+
+      return <p>{moment(date).calendar()}</p>
+    }
   }
 ];
 
@@ -69,29 +76,46 @@ export const Invoices = () => {
         <StyledTabs defaultActiveKey="1">
           <TabPane tab="All invoices" key="">
             <TabWrapperComponent>
-              <TableComponent loading={loading} columns={invoicesColumns} dataSource={invoices}/>
+              <>
+                <TableComponent loading={loading} columns={invoicesColumns} dataSource={invoices}/>
+                <InvoicesCard invoices={invoices}/>
+              </>
             </TabWrapperComponent>
           </TabPane>
           <TabPane tab="Due" key="due">
             <TabWrapperComponent>
-              <p>Due</p>
+              <>
+                <TableComponent loading={loading} columns={invoicesColumns}
+                                dataSource={invoices.filter(el => el.isDue)}/>
+                <InvoicesCard invoices={invoices.filter(el => el.isDue)}/>
+              </>
             </TabWrapperComponent>
           </TabPane>
           <TabPane tab="Paid" key="paid">
             <TabWrapperComponent>
-              <TableComponent loading={loading} columns={invoicesColumns}
-                              dataSource={invoices.filter(el => el.isPayment)}/>
+              <>
+                <TableComponent loading={loading} columns={invoicesColumns}
+                                dataSource={invoices.filter(el => el.isPayment)}/>
+                <InvoicesCard invoices={invoices.filter(el => el.isPayment)}/>
+              </>
             </TabWrapperComponent>
           </TabPane>
           <TabPane tab="Unpaid" key="/invoices?isPayment=false">
             <TabWrapperComponent>
-              <TableComponent loading={loading} columns={invoicesColumns}
-                              dataSource={invoices.filter(el => !el.isPayment)}/>
+              <>
+                <TableComponent loading={loading} columns={invoicesColumns}
+                                dataSource={invoices.filter(el => !el.isPayment)}/>
+                <InvoicesCard invoices={invoices.filter(el => !el.isPayment)}/>
+              </>
             </TabWrapperComponent>
           </TabPane>
           <TabPane tab="Archived" key="archived">
             <TabWrapperComponent>
-              <p>Archived</p>
+              <>
+                <TableComponent loading={loading} columns={invoicesColumns}
+                                dataSource={invoices.filter(el => el.isArchived)}/>
+                <InvoicesCard invoices={invoices.filter(el => el.isArchived)}/>
+              </>
             </TabWrapperComponent>
           </TabPane>
         </StyledTabs>

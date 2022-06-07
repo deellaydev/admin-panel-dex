@@ -4,10 +4,31 @@ import styled from "styled-components";
 import {IUserResponse} from "../../../../api/dto/auth";
 import {deleteEmployee} from "../../../customers/customersAsyncAction";
 import {ChangePassword} from "./ChangePassword";
+import {useAppDispatch} from "../../../../store/hooks/hooks";
+import {changeUserDataAction} from "../../settingsAsyncAction";
+import {authService} from "../../../../api/auth/authService";
 
 export const AccountForm = () => {
 
   const currentUser: IUserResponse = JSON.parse(localStorage.getItem("user") || '').user;
+  const [form] = Form.useForm()
+
+  const dispatch = useAppDispatch()
+
+  const handleChangeUserData = async (value: any) => {
+    const passwordUser = await new authService().getUserById(currentUser.id)
+    const updatedUser = {
+      ...currentUser,
+      name: form.getFieldValue('name'),
+      surname: form.getFieldValue('surname'),
+      patronymic: form.getFieldValue('patronymic'),
+      email: form.getFieldValue('email'),
+      telNumber: form.getFieldValue('telNumber'),
+      password: passwordUser.password
+    }
+    await dispatch(changeUserDataAction(updatedUser))
+  }
+
 
   return (
     <>
@@ -17,7 +38,7 @@ export const AccountForm = () => {
         patronymic: currentUser.patronymic,
         email: currentUser.email,
         telNumber: currentUser.telNumber
-      }}>
+      }} form={form} onFinish={handleChangeUserData}>
         <Form.Item label={"Имя"} name={"name"}>
           <Input/>
         </Form.Item>
@@ -34,7 +55,7 @@ export const AccountForm = () => {
           <Input/>
         </Form.Item>
         <Form.Item>
-          <Popconfirm title="Вы уверены？" okText="Да" cancelText="Нет">
+          <Popconfirm title="Вы уверены？" okText="Да" cancelText="Нет" onConfirm={handleChangeUserData}>
             <Button size={"large"} type={"primary"}>Изменить</Button>
           </Popconfirm>
         </Form.Item>

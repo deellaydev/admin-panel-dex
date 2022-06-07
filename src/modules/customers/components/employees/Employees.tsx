@@ -7,6 +7,7 @@ import styled from "styled-components";
 import {EmployeeCard} from "./EmployeeCard";
 import {IEmployeeResponse} from "../../../../api/dto/customers";
 import {NewEmployeeForm} from "./NewEmployeeForm";
+import {EmployeesCard} from "./EmployeesCard";
 
 export const Employees = () => {
 
@@ -72,6 +73,7 @@ export const Employees = () => {
     <CustomersInner>
       <TableBlock>
         <TableComponent loading={loading} dataSource={employees} columns={employeesColumns}/>
+        <EmployeesCard employees={employees}/>
       </TableBlock>
       <StyledButton size={"large"} type={"primary"} onClick={showModalAddEmployee}>Добавить сотрудника</StyledButton>
       <NewEmployeeForm setIsModalVisible={setIsModalAddEmployeeVisible} isModalVisible={isModalAddEmployeeVisible}/>
@@ -90,4 +92,9 @@ const TableBlock = styled.div`
 `
 const StyledButton = styled(Button)`
   justify-content: flex-end;
+  @media(max-width: 1000px) {
+    bottom: 10px;
+    position: absolute;
+    width: 200px;
+  }
 `

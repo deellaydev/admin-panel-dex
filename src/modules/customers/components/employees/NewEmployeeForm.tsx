@@ -4,7 +4,7 @@ import Title from "antd/lib/typography/Title";
 import {Form, Input, Select, Button, Modal} from "antd";
 import {useAppDispatch, useAppSelector} from "../../../../store/hooks/hooks";
 import {IEmployee, IEmployeeResponse} from "../../../../api/dto/customers";
-import {addNewEmployee} from "../../customersAsyncAction";
+import {addNewEmployee, getAllEmployees} from "../../customersAsyncAction";
 
 interface IProps {
   isModalVisible: boolean;
@@ -14,6 +14,7 @@ interface IProps {
 export const NewEmployeeForm: FC<IProps> = ({isModalVisible, setIsModalVisible}) => {
 
   const {Option} = Select
+  const [form] = Form.useForm()
 
   const dispatch = useAppDispatch();
 
@@ -40,16 +41,17 @@ export const NewEmployeeForm: FC<IProps> = ({isModalVisible, setIsModalVisible})
       default:
         data.post = 'Директор'
     }
-    dispatch(addNewEmployee(data))
+    await dispatch(addNewEmployee(data))
+    await dispatch(getAllEmployees())
+    form.resetFields()
+    setIsModalVisible(false)
   }
 
   const handleCancel = () => {
     setIsModalVisible(false)
   }
 
-  const handleOk = () => {
-    setIsModalVisible(false)
-  }
+
 
   return (
     <Modal title={"Добавить сотрудника"} visible={isModalVisible} onCancel={handleCancel} footer={[
@@ -60,6 +62,7 @@ export const NewEmployeeForm: FC<IProps> = ({isModalVisible, setIsModalVisible})
         <Title>Staff Pro</Title>
         <Title level={4}>Добавить сотрудника</Title>
         <Form
+          form={form}
           name={"addNewEmployee"}
           id={"addNewEmployee"}
           onFinish={getValues}>

@@ -1,5 +1,6 @@
 import React, {FC} from 'react';
 import {Spin, Table} from "antd";
+import styled from "styled-components";
 
 interface IProps{
   loading: boolean;
@@ -9,6 +10,11 @@ interface IProps{
 
 export const TableComponent: FC<IProps> = ({loading, dataSource, columns}) => {
   return (
-    loading ? <Spin/> : <Table columns={columns} dataSource={dataSource} rowKey={"id"}/>
+    loading ? <Spin/> : <StyledTable columns={columns} dataSource={dataSource} rowKey={"id"}/>
   );
 };
+const StyledTable = styled(Table)`
+  @media(max-width: 1000px) {
+    display: none;
+  }
+`

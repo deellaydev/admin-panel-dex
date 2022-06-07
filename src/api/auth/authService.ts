@@ -19,4 +19,8 @@ export class authService {
         return await put(url, password);
     }
 
+    async getUserById(id: number) {
+        return await get(`/users/${id}`)
+    }
+
 }

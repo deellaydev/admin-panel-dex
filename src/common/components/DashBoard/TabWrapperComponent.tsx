@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import {Pagination} from "antd";
 
 export const TabWrapperComponent = ({children} : {children: JSX.Element}) => {
   return (

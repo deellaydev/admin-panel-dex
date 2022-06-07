@@ -2,7 +2,7 @@
   "users": [
     {
       "email": "admin@gmail.com",
-      "password": "$2a$10$fM6MFiFq9E1HC8fQNdum4ep1rb9JPzBjqME860OInMdw3xqMHsU7G",
+      "password": "$2a$10$5eNhgzNgSeT.AHfV9oGkxObB.pLXw.4jcyqF3E1wYxmPHQvWXtiXS",
       "surname": "Демян",
       "name": "Владислав",
       "patronymic": "Александрович",
@@ -14,88 +14,103 @@
   ],
   "invoices": [
     {
-      "nameInvoice": "Тестовый счёт",
-      "valueInvoice": "10000$",
-      "paymentDate": "06-05-2022",
+      "nameInvoice": "Тестовый счёт 1",
+      "valueInvoice": "123123$",
+      "paymentDate": 1655809926529,
       "isPayment": true,
+      "isDue": false,
+      "isArchived": true,
       "id": 1
     },
     {
       "nameInvoice": "Тестовый счёт 2",
-      "valueInvoice": "120¥",
-      "paymentDate": "31-04-2022",
+      "valueInvoice": "45363£",
+      "paymentDate": 1656155526529,
       "isPayment": false,
+      "isDue": true,
+      "isArchived": false,
       "id": 2
     },
     {
       "nameInvoice": "Тестовый счёт 3",
-      "valueInvoice": "1135¥",
-      "paymentDate": "09-05-2022",
+      "valueInvoice": "346123£",
+      "paymentDate": 1656501126529,
       "isPayment": true,
+      "isDue": false,
+      "isArchived": true,
       "id": 3
     },
     {
       "nameInvoice": "Тестовый счёт 4",
-      "valueInvoice": "122222£",
-      "paymentDate": "17-05-2022",
+      "valueInvoice": "76578¥",
+      "paymentDate": 1656241926529,
       "isPayment": false,
+      "isDue": true,
+      "isArchived": false,
       "id": 4
     },
     {
       "nameInvoice": "Тестовый счёт 5",
-      "valueInvoice": "12452£",
-      "paymentDate": "23-05-2022",
-      "isPayment": true,
+      "valueInvoice": "8232346£",
+      "paymentDate": 1655550726529,
+      "isPayment": false,
+      "isDue": false,
+      "isArchived": true,
       "id": 5
     },
     {
       "nameInvoice": "Тестовый счёт 6",
-      "valueInvoice": "3425¥",
-      "paymentDate": "24-05-2022",
-      "isPayment": false,
+      "valueInvoice": "7655468£",
+      "paymentDate": 1656241926529,
+      "isPayment": true,
+      "isDue": false,
+      "isArchived": false,
       "id": 6
     },
     {
       "nameInvoice": "Тестовый счёт 7",
-      "valueInvoice": "1244£",
-      "paymentDate": "26-05-2022",
-      "isPayment": false,
+      "valueInvoice": "834233124£",
+      "paymentDate": 1655550726529,
+      "isPayment": true,
+      "isDue": true,
+      "isArchived": true,
       "id": 7
     },
     {
       "nameInvoice": "Тестовый счёт 8",
-      "valueInvoice": "5664375$",
-      "paymentDate": "28-05-2022",
+      "valueInvoice": "364$",
+      "paymentDate": 1655723526529,
       "isPayment": true,
+      "isDue": false,
+      "isArchived": false,
       "id": 8
     },
     {
       "nameInvoice": "Тестовый счёт 9",
-      "valueInvoice": "124532$",
-      "paymentDate": "30-05-2022",
+      "valueInvoice": "25423¥",
+      "paymentDate": 1659006726529,
       "isPayment": false,
+      "isDue": false,
+      "isArchived": true,
       "id": 9
     },
     {
       "nameInvoice": "Тестовый счёт 10",
-      "valueInvoice": "7457₣",
-      "paymentDate": "19-05-2022",
-      "isPayment": true,
+      "valueInvoice": "24364347£",
+      "paymentDate": 1656846726529,
+      "isPayment": false,
+      "isDue": true,
+      "isArchived": false,
       "id": 10
     },
     {
       "nameInvoice": "Тестовый счёт 11",
-      "valueInvoice": "312415₣",
-      "paymentDate": "17-05-2022",
+      "valueInvoice": "24364347£",
+      "paymentDate": 1659179526529,
       "isPayment": false,
+      "isDue": false,
+      "isArchived": true,
       "id": 11
-    },
-    {
-      "nameInvoice": "Тестовый счёт 12",
-      "valueInvoice": "12356₣",
-      "paymentDate": "11-05-2022",
-      "isPayment": false,
-      "id": 12
     }
   ],
   "seekers": [
@@ -106,17 +121,68 @@
       "telNumber": "+37368622868",
       "sex": "Мужской",
       "id": 1
+    },
+    {
+      "email": "something@gmail.com",
+      "fio": "Юрий Антонов Баджанов",
+      "birthDay": "22.10.1997",
+      "telNumber": "+37368622868",
+      "sex": "Мужской",
+      "id": 2
+    },
+    {
+      "email": "admin@gmail.com",
+      "fio": "Третий Лучший Соискатель",
+      "birthDay": "17.04.2004",
+      "telNumber": "+37342622268",
+      "sex": "Мужской",
+      "id": 3
+    },
+    {
+      "email": "dadaya@gmail.com",
+      "fio": "Это Он Соискатель",
+      "birthDay": "22.07.2006",
+      "telNumber": "+37342622268",
+      "sex": "Мужской",
+      "id": 4
     }
   ],
   "employees": [
     {
       "email": "something@gmail.com",
-      "fio": "Кто-то Там Такой",
-      "birthDay": "18.09.1997",
-      "telNumber": "+37342622268",
+      "fio": "Александр Иванов Генадьевич",
+      "birthDay": "9.05.1997",
+      "telNumber": "+237825798324",
       "sex": "Мужской",
       "post": "Директор",
       "id": 1
+    },
+    {
+      "email": "something_else@gmail.com",
+      "fio": "Сергей Матвеев Юрьевич",
+      "birthDay": "11.03.2005",
+      "telNumber": "+237325498324",
+      "sex": "Мужской",
+      "post": "Программист",
+      "id": 2
+    },
+    {
+      "email": "something_more@gmail.com",
+      "fio": "Алексей Заболотьев Иванович",
+      "birthDay": "5.10.2004",
+      "telNumber": "+263425798324",
+      "sex": "Мужской",
+      "post": "Дизайнер",
+      "id": 3
+    },
+    {
+      "email": "something_more_again@gmail.com",
+      "fio": "Скворцов Олег Алексеевич",
+      "birthDay": "22.11.1994",
+      "telNumber": "+237825798324",
+      "sex": "Мужской",
+      "post": "Системный администратор",
+      "id": 4
     }
   ]
 }

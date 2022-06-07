@@ -13,9 +13,9 @@ export const loginAction = createAsyncThunk(
   }
 )
 
-export const registrationAction = createAsyncThunk(
+export const registrationAction = createAsyncThunk<IUserResponse, IRegister>(
   "auth/signUp",
-  async (data: IRegister) => {
+  async (data) => {
     const registerData = {
       email: data.email,
       surname: data.surname,
