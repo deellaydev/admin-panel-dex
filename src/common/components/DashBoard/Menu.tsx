@@ -1,9 +1,15 @@
 import React, {BaseSyntheticEvent} from 'react';
 import {Menu} from "antd";
 import {MenuProps} from "antd";
-import {SettingOutlined, StockOutlined, UserOutlined} from "@ant-design/icons";
+import {
+  FileDoneOutlined, InfoCircleOutlined,
+  PieChartOutlined,
+  RiseOutlined,
+  SettingOutlined,
+  StockOutlined,
+  UserOutlined
+} from "@ant-design/icons";
 import {useNavigate} from "react-router-dom";
-import {SyntheticEventData} from "react-dom/test-utils";
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -24,16 +30,16 @@ function getItem(
 }
 
 const items: MenuProps['items'] = [
-  getItem('Dashboard', 'dashboard'),
-  getItem('Reports', 'reports', <StockOutlined/>),
-  getItem('Documents', 'documents', null, [
+  getItem('Dashboard', 'dashboard', <PieChartOutlined />),
+  getItem('Reports', 'reports', <RiseOutlined />),
+  getItem('Documents', 'documents', <FileDoneOutlined />, [
     getItem('Invoices', 'invoices'),
     getItem('Drafts', 'drafts'),
     getItem('Templates', 'templates'),
   ]),
   getItem('Customers', 'customers', <UserOutlined/>),
   getItem('Settings', 'settings', <SettingOutlined/>),
-  getItem('Help & Contact', 'help'),
+  getItem('Help & Contact', 'help', <InfoCircleOutlined />),
 ];
 
 export const MenuComponent = () => {

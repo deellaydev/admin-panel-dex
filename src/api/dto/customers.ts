@@ -23,6 +23,6 @@ export interface ISeekerResponse {
   id: number;
 }
 
-export interface IEmployee extends ISeekerResponse {
+export interface IEmployeeResponse extends ISeekerResponse {
   post: string
 }

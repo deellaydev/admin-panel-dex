@@ -1,10 +1,10 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {IEmployee, ISeeker} from "../../api/dto/customers";
+import {IEmployee, IEmployeeResponse, ISeeker, ISeekerResponse} from "../../api/dto/customers";
 import {addNewSeeker, getAllEmployees, getAllSeekers} from "./customersAsyncAction";
 
 interface ICustomersState {
-  seekers: Array<ISeeker>,
-  employees: Array<IEmployee>,
+  seekers: Array<ISeekerResponse>,
+  employees: Array<IEmployeeResponse>,
   loading: boolean;
   error: string | undefined;
 }

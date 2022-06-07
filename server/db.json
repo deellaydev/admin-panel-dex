@@ -89,6 +89,13 @@
       "paymentDate": "17-05-2022",
       "isPayment": false,
       "id": 11
+    },
+    {
+      "nameInvoice": "Тестовый счёт 12",
+      "valueInvoice": "12356₣",
+      "paymentDate": "11-05-2022",
+      "isPayment": false,
+      "id": 12
     }
   ],
   "seekers": [
@@ -105,10 +112,10 @@
     {
       "email": "something@gmail.com",
       "fio": "Кто-то Там Такой",
-      "birthDay": "19.01.1994",
-      "telNumber": "+37368622868",
+      "birthDay": "18.09.1997",
+      "telNumber": "+37342622268",
       "sex": "Мужской",
-      "post": "Глава",
+      "post": "Директор",
       "id": 1
     }
   ]

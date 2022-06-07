@@ -101,9 +101,7 @@ export const Invoices = () => {
         </StyledTabs>
         <Button type={"primary"} size={"large"} onClick={showModal}>+ Add new invoice</Button>
       </HeaderContainer>
-      <Modal title={"Добавить счёт"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-        <NewInvoicesForm/>
-      </Modal>
+      <NewInvoicesForm handleCancel={handleCancel} isModalVisible={isModalVisible}/>
     </Container>
   );
 };

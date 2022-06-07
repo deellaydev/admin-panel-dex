@@ -1,11 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {ISeeker} from "../../../../api/dto/customers";
 import {TableComponent} from "../../../../common/components/DashBoard/TableComponent";
 import {useAppDispatch, useAppSelector} from "../../../../store/hooks/hooks";
 import {getAllSeekers} from "../../customersAsyncAction";
 import {Button, Modal} from "antd";
-import {NewEmployeeForm} from "../employees/NewEmployeeForm";
-import {employeesColumns} from "../employees/Employees";
 import styled from "styled-components";
 import {NewSeekerForm} from "./NewSeekerForm";
 

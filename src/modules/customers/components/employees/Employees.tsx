@@ -1,80 +1,81 @@
-import React, {useEffect, useState} from 'react';
-import {ISeeker} from "../../../../api/dto/customers";
+import React, { useEffect, useState} from 'react';
 import {TableComponent} from "../../../../common/components/DashBoard/TableComponent";
 import {useAppDispatch, useAppSelector} from "../../../../store/hooks/hooks";
-import {getAllEmployees, getAllSeekers} from "../../customersAsyncAction";
+import {getAllEmployees} from "../../customersAsyncAction";
 import {Button, Modal, Tag} from "antd";
 import styled from "styled-components";
-import {NewInvoicesForm} from "../../../invoices/components/NewInvoicesForm";
+import {EmployeeCard} from "./EmployeeCard";
+import {IEmployeeResponse} from "../../../../api/dto/customers";
 import {NewEmployeeForm} from "./NewEmployeeForm";
-
-export const employeesColumns = [
-  {
-    title: 'ID соискателя',
-    dataIndex: 'id',
-    key: 'id',
-    render: (text: string) => <a>{text}</a>
-  },
-  {
-    title: 'ФИО',
-    dataIndex: 'fio',
-    key: 'fio',
-  },
-  {
-    title: 'Номер телефона',
-    dataIndex: 'telNumber',
-    key: 'telNumber',
-  },
-  {
-    title: 'Пол',
-    dataIndex: 'sex',
-    key: 'sex',
-  },
-  {
-    title: 'Дата рождения',
-    dataIndex: 'birthDay',
-    key: 'birthDay'
-  },
-  {
-    title: 'Должность',
-    dataIndex: 'post',
-    key: 'post',
-    render: (text: string) => <Tag color={"red"}>{text.toUpperCase()}</Tag>
-  }
-];
 
 export const Employees = () => {
 
-  const { error, loading, employees} = useAppSelector((state) => state.customersReducer)
+  const employeesColumns = [
+    {
+      title: 'ID соискателя',
+      dataIndex: 'id',
+      key: 'id',
+      render: (text: string, record: IEmployeeResponse) => <a onClick={() => showModalEmployee(record)}>{text}</a>
+    },
+    {
+      title: 'ФИО',
+      dataIndex: 'fio',
+      key: 'fio',
+    },
+    {
+      title: 'Должность',
+      dataIndex: 'post',
+      key: 'post',
+      render: (text: string) => {
+        switch (text){
+          case 'Директор':
+            return <Tag color={"red"}>{text.toUpperCase()}</Tag>
+          case 'Начальник отдела продаж':
+            return <Tag color={"green"}>{text.toUpperCase()}</Tag>
+          case 'Системный администратор':
+            return <Tag color={"blue"}>{text.toUpperCase()}</Tag>
+          case 'Начальник IT-отдела':
+            return <Tag color={"cyan"}>{text.toUpperCase()}</Tag>
+          case 'Программист':
+            return <Tag color={"magenta"}>{text.toUpperCase()}</Tag>
+          case 'Дизайнер':
+            return <Tag color={"purple"}>{text.toUpperCase()}</Tag>
+          default:
+            return <Tag color={"red"}>{text.toUpperCase()}</Tag>
+        }
+      }
+    }
+  ]
+
+  const { loading, employees} = useAppSelector((state) => state.customersReducer)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(getAllEmployees())
   }, [])
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalEmployeeVisible, setIsModalEmployeeVisible] = useState(false);
+  const [modalEmployeeData, setModalEmployeeData] = useState<IEmployeeResponse>();
 
-  const showModal = () => {
-    setIsModalVisible(true);
+  const showModalEmployee = (employee: IEmployeeResponse) => {
+    setIsModalEmployeeVisible(true);
+    setModalEmployeeData(employee)
   };
 
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
+  const [isModalAddEmployeeVisible, setIsModalAddEmployeeVisible] = useState(false);
 
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
+  const showModalAddEmployee = () => {
+    setIsModalAddEmployeeVisible(true)
+  }
 
   return (
     <CustomersInner>
       <TableBlock>
         <TableComponent loading={loading} dataSource={employees} columns={employeesColumns}/>
       </TableBlock>
-      <StyledButton size={"large"} type={"primary"} onClick={showModal}>Добавить сотрудника</StyledButton>
-      <Modal title={"Добавить сотрудника"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-        <NewEmployeeForm/>
-      </Modal>
+      <StyledButton size={"large"} type={"primary"} onClick={showModalAddEmployee}>Добавить сотрудника</StyledButton>
+      <NewEmployeeForm setIsModalVisible={setIsModalAddEmployeeVisible} isModalVisible={isModalAddEmployeeVisible}/>
+      <EmployeeCard isModalVisible={isModalEmployeeVisible} setIsModalVisible={setIsModalEmployeeVisible} employee={modalEmployeeData}/>
     </CustomersInner>
   );
 };

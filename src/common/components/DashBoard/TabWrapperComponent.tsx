@@ -16,4 +16,10 @@ const TabWrapper = styled.div`
   width: calc(100vw - 260px);
   margin-top: 20px;
   padding: 15px;
+  @media(max-width: 900px) {
+    width: calc(100vw - 50px);
+  }
+  @media(max-width: 700px) {
+    overflow-y: auto;
+  }
 `
