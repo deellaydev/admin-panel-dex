@@ -1,4 +1,4 @@
-import {get, post} from "../baseRequest";
+import {get, post, remove} from "../baseRequest";
 
 export class customersService {
 
@@ -16,6 +16,10 @@ export class customersService {
 
   async getEmployees() {
     return await get('/employees')
+  }
+
+  async deleteEmployee(id: number) {
+    return await remove(`/employees/${id}`);
   }
 
 }

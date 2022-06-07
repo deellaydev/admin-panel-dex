@@ -1,6 +1,8 @@
 import React, {FC} from 'react';
 import {IEmployeeResponse} from "../../../../api/dto/customers";
-import {Button, Modal} from "antd";
+import {Button, Modal, Popconfirm} from "antd";
+import {useAppDispatch} from "../../../../store/hooks/hooks";
+import {deleteEmployee, getAllEmployees} from "../../customersAsyncAction";
 
 interface IProps {
   employee: IEmployeeResponse | undefined;
@@ -14,9 +16,16 @@ export const EmployeeCard: FC<IProps> = ({employee, isModalVisible, setIsModalVi
     setIsModalVisible(false);
   };
 
+  const dispatch = useAppDispatch()
+
   return (
     <Modal title={"Информация о сотруднике"} visible={isModalVisible} onCancel={handleCancel} footer={[
-      <Button size={"large"} type={"primary"}>Удалить сотрудника</Button>
+      <Popconfirm title="Вы уверены？" okText="Да" cancelText="Нет" onConfirm={async () => {
+        await dispatch(deleteEmployee(employee?.id || -1))
+        setIsModalVisible(false)
+      }}>
+        <Button size={"large"} type={"primary"} key={"deleteEmployee"}>Удалить сотрудника</Button>
+      </Popconfirm>
     ]}>
       <p><strong>ФИО:</strong> {employee?.fio}</p>
       <p><strong>EMail:</strong> {employee?.email}</p>

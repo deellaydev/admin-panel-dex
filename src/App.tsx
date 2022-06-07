@@ -17,6 +17,7 @@ import {Dashboard} from "./common/components/DashBoard/Dashboard";
 import {Reports} from "./common/components/DashBoard/Reports";
 import {Invoices} from "./modules/invoices/components/Invoices";
 import {Customers} from "./modules/customers/components/Customers";
+import {Settings} from "./modules/settings/components/Settings";
 
 export const App = () => {
   return (
@@ -30,7 +31,7 @@ export const App = () => {
           <Route path={'/documents/drafts'} element={<Reports/>}/>
           <Route path={'/documents/templates'} element={<Reports/>}/>
           <Route path={'/customers'} element={<Customers/>}/>
-          <Route path={'/settings'} element={<Reports/>}/>
+          <Route path={'/settings'} element={<Settings/>}/>
           <Route path={'/help'} element={<Reports/>}/>
         </Route>
         <Route path={'/login'}

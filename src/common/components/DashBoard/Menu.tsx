@@ -9,7 +9,7 @@ import {
   StockOutlined,
   UserOutlined
 } from "@ant-design/icons";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -44,6 +44,8 @@ const items: MenuProps['items'] = [
 
 export const MenuComponent = () => {
 
+  const location = useLocation();
+
   const handleNavigate = (pathArray: string[]) => {
     let path = '';
 
@@ -62,7 +64,7 @@ export const MenuComponent = () => {
 
   return (
     <Menu
-      defaultSelectedKeys={['dashboard']}
+      defaultSelectedKeys={location.pathname.split('/')[1] === '' ? ['dashboard'] : location.pathname.split('/')}
       defaultOpenKeys={['dashboard']}
       mode={"inline"}
       items={items}

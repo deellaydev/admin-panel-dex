@@ -45,3 +45,10 @@ export const getAllEmployees = createAsyncThunk(
     return await new customersService().getEmployees()
   }
 )
+
+export const deleteEmployee = createAsyncThunk(
+  "customers/deleteEmployee",
+  async (id: number) => {
+    return await new customersService().deleteEmployee(id);
+  }
+)

@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {IEmployee, IEmployeeResponse, ISeeker, ISeekerResponse} from "../../api/dto/customers";
-import {addNewSeeker, getAllEmployees, getAllSeekers} from "./customersAsyncAction";
+import {addNewSeeker, deleteEmployee, getAllEmployees, getAllSeekers} from "./customersAsyncAction";
 
 interface ICustomersState {
   seekers: Array<ISeekerResponse>,
@@ -59,6 +59,18 @@ export const CustomersSlice = createSlice({
       state.seekers.push(action.payload)
     });
     builder.addCase(addNewSeeker.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(deleteEmployee.pending, (state) => {
+      state.loading = true;
+      state.error = undefined;
+    });
+    builder.addCase(deleteEmployee.fulfilled, (state, action) => {
+      state.loading = false;
+      state.error = undefined;
+    });
+    builder.addCase(deleteEmployee.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     })
