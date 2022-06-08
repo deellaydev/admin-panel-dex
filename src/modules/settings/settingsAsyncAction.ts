@@ -1,8 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {SettingsService} from "../../api/settings/settingsService";
 import {IUserResponse} from "../../api/dto/auth";
-import {get} from "../../api/baseRequest";
-import {authService} from "../../api/auth/authService";
 
 export const changePasswordAction = createAsyncThunk(
   "settings/changePassword",

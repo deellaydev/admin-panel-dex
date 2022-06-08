@@ -16,9 +16,25 @@ export const getAllInvoices = createAsyncThunk(
   }
 )
 
-export const getUnpaidInvoices = createAsyncThunk(
-  "invoices/getUnpaid",
-  async () => {
-    return
+export const archiveInvoiceAction = createAsyncThunk<IInvoice, {data: IInvoice | undefined, success: () => void}>(
+  "invoices/archiveInvoice",
+  async ({data, success}) => {
+    if (data) {
+      const archivedInvoice = {
+        ...data,
+        isArchived: true
+      }
+      success();
+      return await new InvoicesService().archiveInvoice(archivedInvoice)
+    }
+  }
+)
+
+export const deleteInvoiceAction = createAsyncThunk<void, {id: number, success: () => void, cb: () => void}>(
+  "invoices/deleteInvoice",
+  async ({id, success, cb}) => {
+    await new InvoicesService().deleteInvoice(id);
+    success();
+    cb();
   }
 )

@@ -1,6 +1,6 @@
 import {get, post, remove} from "../baseRequest";
 
-export class customersService {
+export class CustomersService {
 
   async addSeeker(data: string) {
     return await post('/seekers', data)
@@ -20,6 +20,10 @@ export class customersService {
 
   async deleteEmployee(id: number) {
     return await remove(`/employees/${id}`);
+  }
+
+  async deleteSeeker(id: number) {
+    return await remove(`/seekers/${id}`)
   }
 
 }

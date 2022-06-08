@@ -1,13 +1,13 @@
 import React, { useEffect, useState} from 'react';
 import {TableComponent} from "../../../../common/components/DashBoard/TableComponent";
 import {useAppDispatch, useAppSelector} from "../../../../store/hooks/hooks";
-import {getAllEmployees} from "../../customersAsyncAction";
+import {getAllEmployeesAction} from "../../customersAsyncAction";
 import {Button, Modal, Tag} from "antd";
 import styled from "styled-components";
 import {EmployeeCard} from "./EmployeeCard";
 import {IEmployeeResponse} from "../../../../api/dto/customers";
 import {NewEmployeeForm} from "./NewEmployeeForm";
-import {EmployeesCard} from "./EmployeesCard";
+import {EmployeesCardWrapper} from "./EmployeesCardWrapper";
 
 export const Employees = () => {
 
@@ -44,7 +44,34 @@ export const Employees = () => {
           default:
             return <Tag color={"red"}>{text.toUpperCase()}</Tag>
         }
-      }
+      },
+      filters: [
+        {
+          text: 'Директор',
+          value: 'Директор',
+        },
+        {
+          text: 'Начальник отдела продаж',
+          value: 'Начальник отдела продаж',
+        },
+        {
+          text: 'Системный администратор',
+          value: 'Системный администратор',
+        },
+        {
+          text: 'Начальник IT-отдела',
+          value: 'Начальник IT-отдела',
+        },
+        {
+          text: 'Программист',
+          value: 'Программист',
+        },
+        {
+          text: 'Дизайнер',
+          value: 'Дизайнер',
+        },
+      ],
+      onFilter: (value: string, record: IEmployeeResponse) => record.post.indexOf(value) === 0
     }
   ]
 
@@ -52,7 +79,7 @@ export const Employees = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(getAllEmployees())
+    dispatch(getAllEmployeesAction())
   }, [])
 
   const [isModalEmployeeVisible, setIsModalEmployeeVisible] = useState(false);
@@ -73,7 +100,7 @@ export const Employees = () => {
     <CustomersInner>
       <TableBlock>
         <TableComponent loading={loading} dataSource={employees} columns={employeesColumns}/>
-        <EmployeesCard employees={employees}/>
+        <EmployeesCardWrapper employees={employees}/>
       </TableBlock>
       <StyledButton size={"large"} type={"primary"} onClick={showModalAddEmployee}>Добавить сотрудника</StyledButton>
       <NewEmployeeForm setIsModalVisible={setIsModalAddEmployeeVisible} isModalVisible={isModalAddEmployeeVisible}/>

@@ -26,7 +26,7 @@ export const DashboardHeader = () => {
       <div>
         <BreadCrumbs/>
         <Title
-          level={4}>{location[location.length - 1][0].toUpperCase() + location[location.length - 1].slice(1)}</Title>
+          level={4}>{location[location.length - 1] === '' ? 'Dashboard' : location[location.length - 1][0].toUpperCase() + location[location.length - 1].slice(1)}</Title>
       </div>
       <UserContainer>
         <Paragraph style={{marginBottom: "0"}}>{user.name} {user.surname}</Paragraph>

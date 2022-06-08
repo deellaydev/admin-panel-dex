@@ -12,31 +12,9 @@ export const LoginForm = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  const { user, error, loading } = useAppSelector((state) => state.authReducer)
-
   const getValues = async ({email, password} : ILogin) => {
-    await dispatch(loginAction({email, password})).then(() => navigate('/'))
+    await dispatch(loginAction({data: {email, password}, navigate: () => navigate('/'), success: () => message.success("Вы успешно вошли")}))
   }
-
-  const loginError = (errorText: string = '') => {
-    if (errorText !== '') {
-      message.error(errorText, 3);
-    }
-  }
-
-  const loginSuccess = () => {
-    if (user){
-      message.success("Вы авторизированы", 3)
-    }
-  }
-
-  useEffect(() => {
-    loginSuccess()
-  }, [user])
-
-  useEffect(() => {
-    loginError(error)
-  }, [error])
 
   return (
     <FormWrapper>

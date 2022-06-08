@@ -9,60 +9,66 @@ import {getAllInvoices} from "../invoicesAsyncAction";
 import {TableComponent} from "../../../common/components/DashBoard/TableComponent";
 import {IInvoice} from "../../../api/dto/invoices";
 import moment from "moment";
-import {InvoicesCard} from "./InvoicesCard";
-
-export const invoicesColumns = [
-  {
-    title: 'Номер счёта',
-    dataIndex: 'id',
-    key: 'id',
-    render: (text: string) => <a>{text}</a>
-  },
-  {
-    title: 'Имя счёта',
-    dataIndex: 'nameInvoice',
-    key: 'nameInvoice',
-  },
-  {
-    title: 'Сумма счёта',
-    dataIndex: 'valueInvoice',
-    key: 'valueInvoice',
-    sorter: (a: IInvoice, b: IInvoice) => Number(a.valueInvoice.slice(0, -1)) - Number(b.valueInvoice.slice(0, -1)),
-  },
-  {
-    title: 'Статус счёта',
-    dataIndex: 'isPayment',
-    key: 'isPayment',
-    render: (status: boolean) => status ? <p style={{color: "green"}}>Выплачено</p> :
-      <p style={{color: "red"}}>Ожидается выплата</p>
-  },
-  {
-    title: 'Дата выплаты',
-    dataIndex: 'paymentDate',
-    key: 'paymentDate',
-    render: (timestamp: number) => {
-      const date = new Date(timestamp);
-
-      return <p>{moment(date).calendar()}</p>
-    }
-  }
-];
-
+import {InvoicesCardWrapper} from "./InvoicesCardWrapper";
+import {InvoiceCard} from "./InvoiceCard";
+import {IEmployeeResponse} from "../../../api/dto/customers";
 
 export const Invoices = () => {
+
+  const invoicesColumns = [
+    {
+      title: 'Номер счёта',
+      dataIndex: 'id',
+      key: 'id',
+      render: (text: string, record: IInvoice) => <a onClick={() => showModalInvoice(record)}>{text}</a>
+    },
+    {
+      title: 'Имя счёта',
+      dataIndex: 'nameInvoice',
+      key: 'nameInvoice',
+    },
+    {
+      title: 'Сумма счёта',
+      dataIndex: 'valueInvoice',
+      key: 'valueInvoice',
+      sorter: (a: IInvoice, b: IInvoice) => Number(a.valueInvoice.slice(0, -1)) - Number(b.valueInvoice.slice(0, -1)),
+    },
+    {
+      title: 'Статус счёта',
+      dataIndex: 'isPayment',
+      key: 'isPayment',
+      render: (status: boolean) => status ? <p style={{color: "green"}}>Выплачено</p> :
+        <p style={{color: "red"}}>Ожидается выплата</p>
+    },
+    {
+      title: 'Дата выплаты',
+      dataIndex: 'paymentDate',
+      key: 'paymentDate',
+      render: (timestamp: number) => {
+        const date = new Date(timestamp);
+
+        return <p>{moment(date).calendar()}</p>
+      }
+    }
+  ];
+
 
   const {TabPane} = Tabs;
   const {loading, error, invoices} = useAppSelector((state) => state.invoicesReducer)
   const dispatch = useAppDispatch();
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalInvoiceVisible, setIsModalInvoiceVisible] = useState(false);
+  const [modalInvoiceData, setModalInvoiceData] = useState<IInvoice>();
 
-  const showModal = () => {
-    setIsModalVisible(true);
+  const showModalInvoice = (invoice: IInvoice) => {
+    setIsModalInvoiceVisible(true);
+    setModalInvoiceData(invoice)
   };
 
-  const handleCancel = () => {
-    setIsModalVisible(false);
+  const [isModalAddInvoiceVisible, setIsModalAddInvoiceVisible] = useState(false);
+
+  const showAddInvoiceModal = () => {
+    setIsModalAddInvoiceVisible(true);
   };
 
   useEffect(() => {
@@ -78,7 +84,7 @@ export const Invoices = () => {
             <TabWrapperComponent>
               <>
                 <TableComponent loading={loading} columns={invoicesColumns} dataSource={invoices}/>
-                <InvoicesCard invoices={invoices}/>
+                <InvoicesCardWrapper invoices={invoices}/>
               </>
             </TabWrapperComponent>
           </TabPane>
@@ -87,7 +93,7 @@ export const Invoices = () => {
               <>
                 <TableComponent loading={loading} columns={invoicesColumns}
                                 dataSource={invoices.filter(el => el.isDue)}/>
-                <InvoicesCard invoices={invoices.filter(el => el.isDue)}/>
+                <InvoicesCardWrapper invoices={invoices.filter(el => el.isDue)}/>
               </>
             </TabWrapperComponent>
           </TabPane>
@@ -96,7 +102,7 @@ export const Invoices = () => {
               <>
                 <TableComponent loading={loading} columns={invoicesColumns}
                                 dataSource={invoices.filter(el => el.isPayment)}/>
-                <InvoicesCard invoices={invoices.filter(el => el.isPayment)}/>
+                <InvoicesCardWrapper invoices={invoices.filter(el => el.isPayment)}/>
               </>
             </TabWrapperComponent>
           </TabPane>
@@ -105,7 +111,7 @@ export const Invoices = () => {
               <>
                 <TableComponent loading={loading} columns={invoicesColumns}
                                 dataSource={invoices.filter(el => !el.isPayment)}/>
-                <InvoicesCard invoices={invoices.filter(el => !el.isPayment)}/>
+                <InvoicesCardWrapper invoices={invoices.filter(el => !el.isPayment)}/>
               </>
             </TabWrapperComponent>
           </TabPane>
@@ -114,14 +120,15 @@ export const Invoices = () => {
               <>
                 <TableComponent loading={loading} columns={invoicesColumns}
                                 dataSource={invoices.filter(el => el.isArchived)}/>
-                <InvoicesCard invoices={invoices.filter(el => el.isArchived)}/>
+                <InvoicesCardWrapper invoices={invoices.filter(el => el.isArchived)}/>
               </>
             </TabWrapperComponent>
           </TabPane>
         </StyledTabs>
-        <Button type={"primary"} size={"large"} onClick={showModal}>+ Add new invoice</Button>
+        <Button type={"primary"} size={"large"} onClick={showAddInvoiceModal}>+ Add new invoice</Button>
       </HeaderContainer>
-      <NewInvoicesForm handleCancel={handleCancel} isModalVisible={isModalVisible}/>
+      <InvoiceCard isModalVisible={isModalInvoiceVisible} setIsModalVisible={setIsModalInvoiceVisible} invoice={modalInvoiceData}/>
+      <NewInvoicesForm setIsModalVisible={setIsModalAddInvoiceVisible} isModalVisible={isModalAddInvoiceVisible}/>
     </Container>
   );
 };

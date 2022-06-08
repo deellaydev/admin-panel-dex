@@ -1,15 +1,19 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {IChangePassword, ILogin, IRegister, IUserResponse} from "../../api/dto/auth";
-import {authService} from "../../api/auth/authService";
+import { ILogin, IRegister, IUserResponse} from "../../api/dto/auth";
+import {AuthService} from "../../api/auth/authService";
+import moment from "moment";
 
-export const loginAction = createAsyncThunk(
+export const loginAction = createAsyncThunk<IUserResponse, {data: ILogin, navigate: () => void, success: () => void}>(
   "auth/signIn",
-  async (data: ILogin) => {
-    const response = await new authService().loginService(JSON.stringify(data))
-    if (!response) {
-      throw new Error('Такого пользователья не существует')
-    }
-    return response
+  async ({data, navigate, success}) => {
+      const response = await new AuthService().loginService(JSON.stringify(data))
+
+      if (!response) {
+        throw new Error("Такого пользователя не существует")
+      }
+      success();
+      navigate();
+      return response;
   }
 )
 
@@ -22,43 +26,24 @@ export const registrationAction = createAsyncThunk<IUserResponse, IRegister>(
       name: data.name,
       patronymic: data.patronymic,
       password: data.password,
-      birthDay: data.dayOfBirth + '.' + data.monthOfBirth + '.' + data.yearOfBirth,
-      telNumber: data.telNumber,
+      birthDay: moment(new Date(`${data.yearOfBirth}-${data.monthOfBirth}-${data.dayOfBirth}`)).valueOf(),
+      telNumber: data.telNumber || null,
       sex: data.sex
     }
 
-    const response = await new authService().registrationService(JSON.stringify(registerData))
-
-    if (!response) {
-      throw new Error('Такого пользователья не существует')
-    }
-    return response
+    return await new AuthService().registrationService(JSON.stringify(registerData))
   }
 )
 
-export const restorePasswordAction = createAsyncThunk(
+export const restorePasswordAction = createAsyncThunk<IUserResponse, {email: string, success: () => void}>(
   "auth/restorePassword",
-  async (email: string) => {
-    const response = await new authService().restorePassword(`/users?email=${email}`)
+  async ({email, success}) => {
+    const response = await new AuthService().restorePassword(`/users?email=${email}`)
 
     if (response.length === 0) {
-      throw new Error("Такого пользователя не существует")
+      throw new Error("Неверная почта")
     }
-    return response;
-  }
-)
-
-export const changePasswordAction = createAsyncThunk(
-  "auth/changePassword",
-  async ({email, password}: IChangePassword) => {
-    const body = {
-      password: password
-    }
-    const response = new authService().updatePassword(`/users?email=${email}`, JSON.stringify(body))
-
-    if (!response) {
-      throw new Error("Пароль не сменён")
-    }
+    success()
     return response;
   }
 )

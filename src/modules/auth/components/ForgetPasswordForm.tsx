@@ -16,24 +16,9 @@ export const ForgetPasswordForm = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const { error } = useAppSelector((state) => state.authReducer)
-
   const restorePassword = async ({email} : IRestorePassword) => {
-    await dispatch(restorePasswordAction(email))
+    await dispatch(restorePasswordAction({email, success: () => message.success("Пользователь найден", 3).then(() => navigate('/restorePasswordSuccess'))}))
   }
-
-  useEffect(() => {
-    if (localStorage.getItem('restorePasswordUser')){
-      message.success("Пользователь найден", 3).then(() => navigate('/restorePasswordSuccess'))
-    }
-  }, [localStorage.getItem('restorePasswordUser')])
-
-  useEffect(() => {
-    if (error !== undefined) {
-      message.error(error, 3);
-    }
-  }, [error])
-
 
   return (
     <FormWrapper>

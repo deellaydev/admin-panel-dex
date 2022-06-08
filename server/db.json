@@ -1,16 +1,6 @@
 {
   "users": [
-    {
-      "email": "admin@gmail.com",
-      "password": "$2a$10$5eNhgzNgSeT.AHfV9oGkxObB.pLXw.4jcyqF3E1wYxmPHQvWXtiXS",
-      "surname": "Демян",
-      "name": "Владислав",
-      "patronymic": "Александрович",
-      "birthDay": "08.01.2002",
-      "telNumber": "+37368622868",
-      "sex": "Мужской",
-      "id": 1
-    }
+
   ],
   "invoices": [
     {
@@ -28,7 +18,7 @@
       "paymentDate": 1656155526529,
       "isPayment": false,
       "isDue": true,
-      "isArchived": false,
+      "isArchived": true,
       "id": 2
     },
     {
@@ -37,7 +27,7 @@
       "paymentDate": 1656501126529,
       "isPayment": true,
       "isDue": false,
-      "isArchived": true,
+      "isArchived": false,
       "id": 3
     },
     {
@@ -46,7 +36,7 @@
       "paymentDate": 1656241926529,
       "isPayment": false,
       "isDue": true,
-      "isArchived": false,
+      "isArchived": true,
       "id": 4
     },
     {
@@ -55,7 +45,7 @@
       "paymentDate": 1655550726529,
       "isPayment": false,
       "isDue": false,
-      "isArchived": true,
+      "isArchived": false,
       "id": 5
     },
     {
@@ -73,7 +63,7 @@
       "paymentDate": 1655550726529,
       "isPayment": true,
       "isDue": true,
-      "isArchived": true,
+      "isArchived": false,
       "id": 7
     },
     {
@@ -82,7 +72,7 @@
       "paymentDate": 1655723526529,
       "isPayment": true,
       "isDue": false,
-      "isArchived": false,
+      "isArchived": true,
       "id": 8
     },
     {
@@ -100,58 +90,33 @@
       "paymentDate": 1656846726529,
       "isPayment": false,
       "isDue": true,
-      "isArchived": false,
-      "id": 10
-    },
-    {
-      "nameInvoice": "Тестовый счёт 11",
-      "valueInvoice": "24364347£",
-      "paymentDate": 1659179526529,
-      "isPayment": false,
-      "isDue": false,
       "isArchived": true,
-      "id": 11
+      "id": 10
     }
   ],
   "seekers": [
     {
-      "email": "dadaya@gmail.com",
-      "fio": "Какой-то Там Соискатель",
-      "birthDay": "1.01.2002",
-      "telNumber": "+37368622868",
+      "email": "kirill1967@yandex.ru",
+      "fio": "Парфенов Кирилл Константинович",
+      "birthDay": 891896400000,
+      "telNumber": "+79393851537",
       "sex": "Мужской",
       "id": 1
     },
     {
-      "email": "something@gmail.com",
-      "fio": "Юрий Антонов Баджанов",
-      "birthDay": "22.10.1997",
-      "telNumber": "+37368622868",
-      "sex": "Мужской",
+      "email": "karina1966@rambler.ru",
+      "fio": "Швецова Карина Даниловна",
+      "birthDay": 963705600000,
+      "telNumber": "+79794237681",
+      "sex": "Женский",
       "id": 2
-    },
-    {
-      "email": "admin@gmail.com",
-      "fio": "Третий Лучший Соискатель",
-      "birthDay": "17.04.2004",
-      "telNumber": "+37342622268",
-      "sex": "Мужской",
-      "id": 3
-    },
-    {
-      "email": "dadaya@gmail.com",
-      "fio": "Это Он Соискатель",
-      "birthDay": "22.07.2006",
-      "telNumber": "+37342622268",
-      "sex": "Мужской",
-      "id": 4
     }
   ],
   "employees": [
     {
       "email": "something@gmail.com",
-      "fio": "Александр Иванов Генадьевич",
-      "birthDay": "9.05.1997",
+      "fio": "Сергей Матвеев Иванович",
+      "birthDay": 768700800000,
       "telNumber": "+237825798324",
       "sex": "Мужской",
       "post": "Директор",
@@ -159,30 +124,39 @@
     },
     {
       "email": "something_else@gmail.com",
-      "fio": "Сергей Матвеев Юрьевич",
-      "birthDay": "11.03.2005",
-      "telNumber": "+237325498324",
+      "fio": "Александр Заболотьев Генадьевич",
+      "birthDay": 947282400000,
+      "telNumber": "+263425798324",
       "sex": "Мужской",
-      "post": "Программист",
+      "post": "Начальник IT-отдела",
       "id": 2
     },
     {
-      "email": "something_more@gmail.com",
-      "fio": "Алексей Заболотьев Иванович",
-      "birthDay": "5.10.2004",
+      "email": "something_more_again@gmail.com",
+      "fio": "Скворцов Матвеев Юрьевич",
+      "birthDay": 656553600000,
       "telNumber": "+263425798324",
       "sex": "Мужской",
-      "post": "Дизайнер",
+      "post": "Программист",
       "id": 3
     },
     {
       "email": "something_more_again@gmail.com",
-      "fio": "Скворцов Олег Алексеевич",
-      "birthDay": "22.11.1994",
+      "fio": "Алексей Иванов Генадьевич",
+      "birthDay": 1091653200000,
       "telNumber": "+237825798324",
       "sex": "Мужской",
-      "post": "Системный администратор",
+      "post": "Начальник IT-отдела",
       "id": 4
+    },
+    {
+      "email": "something_more_again_once@gmail.com",
+      "fio": "Носков Павел Антонович",
+      "birthDay": 761443200000,
+      "telNumber": null,
+      "sex": "Мужской",
+      "post": "Системный администратор",
+      "id": 5
     }
   ]
 }

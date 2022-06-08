@@ -2,9 +2,9 @@ import React, {FC} from 'react';
 import styled from "styled-components";
 import Title from "antd/lib/typography/Title";
 import {Form, Input, Select, Button, Modal} from "antd";
-import {useAppDispatch, useAppSelector} from "../../../../store/hooks/hooks";
-import {IEmployee, IEmployeeResponse} from "../../../../api/dto/customers";
-import {addNewEmployee, getAllEmployees} from "../../customersAsyncAction";
+import {useAppDispatch} from "../../../../store/hooks/hooks";
+import {IEmployee} from "../../../../api/dto/customers";
+import {addNewEmployeeAction, getAllEmployeesAction} from "../../customersAsyncAction";
 
 interface IProps {
   isModalVisible: boolean;
@@ -41,8 +41,7 @@ export const NewEmployeeForm: FC<IProps> = ({isModalVisible, setIsModalVisible})
       default:
         data.post = 'Директор'
     }
-    await dispatch(addNewEmployee(data))
-    await dispatch(getAllEmployees())
+    await dispatch(addNewEmployeeAction(data))
     form.resetFields()
     setIsModalVisible(false)
   }
@@ -50,8 +49,6 @@ export const NewEmployeeForm: FC<IProps> = ({isModalVisible, setIsModalVisible})
   const handleCancel = () => {
     setIsModalVisible(false)
   }
-
-
 
   return (
     <Modal title={"Добавить сотрудника"} visible={isModalVisible} onCancel={handleCancel} footer={[
@@ -194,11 +191,7 @@ export const NewEmployeeForm: FC<IProps> = ({isModalVisible, setIsModalVisible})
               rules={[{
                 pattern: new RegExp(/^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$/im),
                 message: "Неверный формат телефона"
-              },
-                {
-                  required: true,
-                  message: "Обязательное поле"
-                }]}
+              }]}
               hasFeedback>
               <Input placeholder={"Номер телефона"}/>
             </Form.Item>

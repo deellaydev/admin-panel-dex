@@ -2,7 +2,6 @@ import React from 'react';
 import styled from "styled-components";
 import {Button, Form, Input, Typography} from "antd";
 import {useAppDispatch} from "../../../store/hooks/hooks";
-import {changePasswordAction} from "../authAsyncAction";
 
 interface IChangePassword {
   password: string;
@@ -12,21 +11,13 @@ interface IChangePassword {
 export const NewPasswordForm = () => {
 
   const { Title } = Typography
-  const restoredUser = JSON.parse(localStorage.getItem("restorePasswordUser") || '')[0];
-
-  const dispatch = useAppDispatch()
-
-  const handleChange = async (data: IChangePassword) => {
-    await dispatch(changePasswordAction({email: restoredUser.email, password: data.password}))
-  }
 
   return (
     <FormWrapper>
       <Title>StaffPro</Title>
       <Title level={5}>Введите новый пароль</Title>
       <Form
-        name={"changePassword"}
-        onFinish={handleChange}>
+        name={"changePassword"}>
         <Form.Item
           name={"password"}
           rules={[{

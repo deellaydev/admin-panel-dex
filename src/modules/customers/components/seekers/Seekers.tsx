@@ -1,74 +1,82 @@
 import React, {useEffect, useState} from 'react';
 import {TableComponent} from "../../../../common/components/DashBoard/TableComponent";
 import {useAppDispatch, useAppSelector} from "../../../../store/hooks/hooks";
-import {getAllSeekers} from "../../customersAsyncAction";
+import {getAllSeekersAction} from "../../customersAsyncAction";
 import {Button, Modal} from "antd";
 import styled from "styled-components";
 import {NewSeekerForm} from "./NewSeekerForm";
-import {SeekersCard} from "./SeekersCard";
-
-export const seekersColumns = [
-  {
-    title: 'ID соискателя',
-    dataIndex: 'id',
-    key: 'id',
-    render: (text: string) => <a>{text}</a>
-  },
-  {
-    title: 'ФИО',
-    dataIndex: 'fio',
-    key: 'fio',
-  },
-  {
-    title: 'Номер телефона',
-    dataIndex: 'telNumber',
-    key: 'telNumber',
-  },
-  {
-    title: 'Пол',
-    dataIndex: 'sex',
-    key: 'sex',
-  },
-  {
-    title: 'Дата рождения',
-    dataIndex: 'birthDay',
-    key: 'birthDay'
-  }
-];
+import {SeekersCardWrapper} from "./SeekersCardWrapper";
+import {IEmployeeResponse, ISeeker, ISeekerResponse} from "../../../../api/dto/customers";
+import {SeekerCard} from "./SeekerCard";
 
 export const Seekers = () => {
 
-  const { error, loading, seekers} = useAppSelector((state) => state.customersReducer)
+  const seekersColumns = [
+    {
+      title: 'ID соискателя',
+      dataIndex: 'id',
+      key: 'id',
+      render: (text: string, record: ISeekerResponse) => <a onClick={() => showModalSeeker(record)}>{text}</a>
+    },
+    {
+      title: 'ФИО',
+      dataIndex: 'fio',
+      key: 'fio',
+    },
+    {
+      title: 'Номер телефона',
+      dataIndex: 'telNumber',
+      key: 'telNumber',
+      render: (value: string) => <p>{value || 'Номер не указан'}</p>
+    },
+    {
+      title: 'Пол',
+      dataIndex: 'sex',
+      key: 'sex',
+      filters: [
+        {
+          text: 'Мужской',
+          value: 'Мужской'
+        },
+        {
+          text: 'Женский',
+          value: 'Женский'
+        }
+      ],
+      onFilter: (value: string, record: ISeekerResponse) => record.sex.indexOf(value) === 0
+    }
+  ];
+
+  const { loading, seekers} = useAppSelector((state) => state.customersReducer)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(getAllSeekers())
+    dispatch(getAllSeekersAction())
   }, [])
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalSeekerVisible, setIsModalSeekerVisible] = useState(false);
+  const [modalSeekerData, setModalSeekerData] = useState<ISeekerResponse>();
 
-  const showModal = () => {
-    setIsModalVisible(true);
+  const showModalSeeker = (seeker: ISeekerResponse) => {
+    setIsModalSeekerVisible(true);
+    setModalSeekerData(seeker)
   };
 
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
+  const [isModalAddSeekerVisible, setIsModalAddSeekerVisible] = useState(false);
 
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
+  const showModalAddSeeker = () => {
+    setIsModalAddSeekerVisible(true)
+  }
 
   return (
     <CustomersInner>
       <TableBlock>
         <TableComponent loading={loading} dataSource={seekers} columns={seekersColumns}/>
-        <SeekersCard seekers={seekers}/>
+        <SeekersCardWrapper seekers={seekers}/>
       </TableBlock>
-      <StyledButton size={"large"} type={"primary"} onClick={showModal}>Добавить соискателя</StyledButton>
-      <Modal title={"Добавить соискателя"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-        <NewSeekerForm/>
-      </Modal>
+      <StyledButton size={"large"} type={"primary"} onClick={showModalAddSeeker}>Добавить соискателя</StyledButton>
+      <NewSeekerForm isModalVisible={isModalAddSeekerVisible} setIsModalVisible={setIsModalAddSeekerVisible}/>
+      <SeekerCard seeker={modalSeekerData} isModalVisible={isModalSeekerVisible} setIsModalVisible={setIsModalSeekerVisible}/>
     </CustomersInner>
   );
 };

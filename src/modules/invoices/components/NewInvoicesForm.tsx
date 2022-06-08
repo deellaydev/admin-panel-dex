@@ -27,12 +27,13 @@ interface IInvoiceForm {
 
 interface IProps {
   isModalVisible: boolean;
-  handleCancel: () => void;
+  setIsModalVisible: (status: boolean) => void;
 }
 
-export const NewInvoicesForm: FC<IProps> = ({isModalVisible, handleCancel}) => {
+export const NewInvoicesForm: FC<IProps> = ({isModalVisible, setIsModalVisible}) => {
 
   const dispatch = useAppDispatch()
+  const [form] = Form.useForm()
 
   const addInvoice = async (values: IInvoiceForm) => {
 
@@ -45,11 +46,13 @@ export const NewInvoicesForm: FC<IProps> = ({isModalVisible, handleCancel}) => {
       isArchived: false
     }
 
-    form.resetFields();
     await dispatch(addNewInvoices(invoice))
+    form.resetFields();
   }
 
-  const [form] = Form.useForm()
+  const handleCancel = () => {
+    setIsModalVisible(false)
+  }
 
   return (
     <Modal title={"Добавить счёт"} visible={isModalVisible} onCancel={handleCancel} footer={[

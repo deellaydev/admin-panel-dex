@@ -6,7 +6,7 @@ export interface ISeeker {
   dayOfBirth: string;
   monthOfBirth: string;
   yearOfBirth: string;
-  telNumber?: string;
+  telNumber?: string | null;
   sex: string;
 }
 
@@ -17,8 +17,8 @@ export interface IEmployee extends ISeeker {
 export interface ISeekerResponse {
   email: string;
   fio: string;
-  birthDay: string;
-  telNumber?: string;
+  birthDay: number;
+  telNumber?: string | null;
   sex: string;
   id: number;
 }

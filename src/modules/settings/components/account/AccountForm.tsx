@@ -1,12 +1,10 @@
-import React, {useState} from 'react';
-import {Button, Drawer, Form, Input, Popconfirm, Select} from "antd";
+import React from 'react';
+import {Button, Form, Input, Popconfirm} from "antd";
 import styled from "styled-components";
 import {IUserResponse} from "../../../../api/dto/auth";
-import {deleteEmployee} from "../../../customers/customersAsyncAction";
 import {ChangePassword} from "./ChangePassword";
 import {useAppDispatch} from "../../../../store/hooks/hooks";
 import {changeUserDataAction} from "../../settingsAsyncAction";
-import {authService} from "../../../../api/auth/authService";
 
 export const AccountForm = () => {
 
@@ -16,7 +14,6 @@ export const AccountForm = () => {
   const dispatch = useAppDispatch()
 
   const handleChangeUserData = async (value: any) => {
-    const passwordUser = await new authService().getUserById(currentUser.id)
     const updatedUser = {
       ...currentUser,
       name: form.getFieldValue('name'),
@@ -24,7 +21,7 @@ export const AccountForm = () => {
       patronymic: form.getFieldValue('patronymic'),
       email: form.getFieldValue('email'),
       telNumber: form.getFieldValue('telNumber'),
-      password: passwordUser.password
+      password: form.getFieldValue('password')
     }
     await dispatch(changeUserDataAction(updatedUser))
   }
@@ -53,6 +50,15 @@ export const AccountForm = () => {
         </Form.Item>
         <Form.Item label={"Номер телефона"} name={"telNumber"}>
           <Input/>
+        </Form.Item>
+        <Form.Item
+          label={"Пароль"}
+          name={"password"}
+          rules={[{
+            required: true,
+            message: "Обязательное поле"
+          }]}>
+          <Input.Password size={"large"}/>
         </Form.Item>
         <Form.Item>
           <Popconfirm title="Вы уверены？" okText="Да" cancelText="Нет" onConfirm={handleChangeUserData}>

@@ -12,34 +12,12 @@ export const RegisterForm = () => {
   const {Paragraph, Title} = Typography
   const {Option} = Select
 
-  const { user, error, loading } = useAppSelector((state) => state.authReducer)
-
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const getValues = async (data: IRegister) => {
     await dispatch(registrationAction(data)).then(() => navigate('/'))
   }
-
-  const registrationError = (errorText: string = '') => {
-    if (errorText !== '') {
-      message.error(errorText, 3);
-    }
-  }
-
-  const registrationSuccess = () => {
-    if (user){
-      message.success("Вы успешно зарегестрированы", 3)
-    }
-  }
-
-  useEffect(() => {
-    registrationSuccess()
-  }, [user])
-
-  useEffect(() => {
-    registrationError(error)
-  }, [error])
 
   return (
     <FormWrapper>
@@ -193,11 +171,7 @@ export const RegisterForm = () => {
             rules={[{
               pattern: new RegExp(/^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$/im),
               message: "Неверный формат телефона"
-            },
-              {
-                required: true,
-                message: "Обязательное поле"
-              }]}
+            }]}
             hasFeedback>
             <Input placeholder={"Номер телефона"}/>
           </Form.Item>

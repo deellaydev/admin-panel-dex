@@ -1,5 +1,5 @@
 import {IInvoice} from "../dto/invoices";
-import {get, post} from "../baseRequest";
+import {get, post, put, remove} from "../baseRequest";
 
 export class InvoicesService {
 
@@ -9,6 +9,14 @@ export class InvoicesService {
 
   async getAllInvoices () {
     return await get( '/invoices')
+  }
+
+  async archiveInvoice (data: IInvoice | undefined) {
+    return await put(`/invoices/${data?.id}`, JSON.stringify(data))
+  }
+
+  async deleteInvoice (id: number) {
+    return await remove(`/invoices/${id}`)
   }
 
 }

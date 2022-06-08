@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {GlobalStyle} from "./assets/style/GlobalStyle";
 import {Route, Routes} from "react-router-dom";
 import {AuthLayout} from "./pages/AuthLayout";
@@ -13,13 +13,41 @@ import {
 import {ForgetPasswordForm} from "./modules/auth/components/ForgetPasswordForm";
 import {RestorePassword} from "./modules/auth/components/RestorePassword";
 import {NewPasswordForm} from "./modules/auth/components/NewPasswordForm";
-import {Dashboard} from "./common/components/DashBoard/Dashboard";
-import {Reports} from "./common/components/DashBoard/Reports";
+import {Dashboard} from "./modules/dashboard/components/Dashboard";
 import {Invoices} from "./modules/invoices/components/Invoices";
 import {Customers} from "./modules/customers/components/Customers";
 import {Settings} from "./modules/settings/components/Settings";
+import {useAppDispatch, useAppSelector} from "./store/hooks/hooks";
+import {message} from "antd";
+import {clearError} from "./modules/auth/authSlice";
+import {Reports} from "./modules/reports/components/Reports";
 
 export const App = () => {
+
+  const dispatch = useAppDispatch()
+
+  const authError = useAppSelector((state) => state.authReducer.error)
+  const customersError = useAppSelector((state) => state.customersReducer.error)
+  const invoicesError = useAppSelector((state) => state.invoicesReducer.error)
+  const settingsError = useAppSelector((state) => state.settingsReducer.error)
+
+  useEffect(() => {
+    if (authError) {
+      message.error(authError);
+      dispatch(clearError())
+    }
+    else if (customersError) {
+      message.error(customersError)
+    }
+    else if (invoicesError) {
+      message.error(invoicesError)
+    }
+    else if (settingsError) {
+      message.error(settingsError)
+    }
+  }, [authError, customersError, invoicesError, settingsError])
+
+
   return (
     <>
       <GlobalStyle/>
