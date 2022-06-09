@@ -25,6 +25,9 @@ export const InvoicesSlice = createSlice({
   reducers: {
     deleteInvoice(state, action) {
       state.invoices = state.invoices.filter((invoice) => invoice.id !== action.payload)
+    },
+    clearErrorInvoice (state) {
+      state.error = undefined;
     }
   },
   extraReducers: (builder => {
@@ -81,5 +84,5 @@ function isError(action: AnyAction) {
   return action.type.endsWith('rejected')
 }
 
-export const {deleteInvoice} = InvoicesSlice.actions
+export const {deleteInvoice, clearErrorInvoice} = InvoicesSlice.actions
 export default InvoicesSlice.reducer

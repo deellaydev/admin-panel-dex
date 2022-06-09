@@ -21,7 +21,7 @@ export const AuthSlice = createSlice({
     signOut (state) {
       state.user = null;
     },
-    clearError (state) {
+    clearErrorAuth (state) {
       state.error = undefined;
     }
   },
@@ -66,6 +66,6 @@ function isError(action: AnyAction) {
   return action.type.endsWith('rejected')
 }
 
-export const {signOut, clearError} = AuthSlice.actions
+export const {signOut, clearErrorAuth} = AuthSlice.actions
 
 export default AuthSlice.reducer

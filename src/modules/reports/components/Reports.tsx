@@ -1,45 +1,59 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {DashboardHeader} from "../../../common/components/DashBoard/DashboardHeader";
 import styled from "styled-components";
-import {List} from "antd";
+import {List, Tabs} from "antd";
 import {ReportsFileCard} from "./ReportsFileCard";
-
-export interface IFile {
-  title: string;
-  fileId?: string;
-}
+import {useAppDispatch, useAppSelector} from "../../../store/hooks/hooks";
+import {getReportsAction} from "../reportsAsyncAction";
+import {TabWrapperComponent} from "../../../common/components/DashBoard/TabWrapperComponent";
 
 export const Reports = () => {
 
-  const [files, setFiles] = useState<IFile[]>()
+  const {TabPane} = Tabs;
+
+  const dispatch = useAppDispatch()
+  const {reports} = useAppSelector((state) => state.reportsReducer)
 
   useEffect(() => {
     let timerId = setTimeout(async function request() {
-      if (!files) {
-        const response = await fetch(`http://localhost:3002/loadFiles`).then((res) => res.json()).then((files) => files)
-        setFiles(response)
-        console.log(response);
-        timerId = setTimeout(request, 10000)
-      }
+      dispatch(getReportsAction())
+      timerId = setTimeout(request, 10000)
     }, 0)
-    return () => clearTimeout(timerId)
   }, [])
 
   return (
     <Container>
       <DashboardHeader/>
-      <ReportsWrapper>
-        <List
-          itemLayout={"vertical"}
-          size={"large"}
-          pagination={{
-            pageSize: 6,
-          }}
-          dataSource={files}
-          renderItem={(item, i) => (
-            <ReportsFileCard title={item.title} fileId={item.fileId}/>
-          )}/>
-      </ReportsWrapper>
+      <StyledTabs defaultActiveKey="1">
+        <TabPane tab="Files" key="files">
+          <TabWrapperComponent>
+            <List
+              itemLayout={"vertical"}
+              size={"large"}
+              pagination={{
+                pageSize: 5,
+              }}
+              dataSource={reports.filter((item) => item.title !== 'Sound')}
+              renderItem={(item, i) => (
+                <ReportsFileCard title={item.title} fileId={item.fileId}/>
+              )}/>
+          </TabWrapperComponent>
+        </TabPane>
+        <TabPane tab="Sound" key="sound">
+          <TabWrapperComponent>
+            <List
+              itemLayout={"vertical"}
+              size={"large"}
+              pagination={{
+                pageSize: 5,
+              }}
+              dataSource={reports.filter((item) => item.title === 'Sound')}
+              renderItem={(item, i) => (
+                <ReportsFileCard title={item.title} fileId={item.fileId}/>
+              )}/>
+          </TabWrapperComponent>
+        </TabPane>
+      </StyledTabs>
     </Container>
   );
 };
@@ -57,5 +71,10 @@ const ReportsWrapper = styled.div`
   padding: 15px;
   @media (max-width: 900px) {
     width: calc(100vw - 50px);
+  }
+`
+const StyledTabs = styled(Tabs)`
+  .ant-tabs-nav {
+    margin-bottom: 0;
   }
 `

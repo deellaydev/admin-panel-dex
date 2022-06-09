@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
 import styled from "styled-components";
 import {Card} from "antd";
-import {IFile} from "./Reports";
+import {IReportFile} from "../../../api/dto/reports";
 
-export const ReportsFileCard: FC<IFile> = ({title, fileId}) => {
+export const ReportsFileCard: FC<IReportFile> = ({title, fileId}) => {
 
   const handleDownloadSound = async () => {
     const response = await fetch('http://localhost:3002/loadSound').then((res) => res.blob())

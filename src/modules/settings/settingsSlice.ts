@@ -14,7 +14,11 @@ const initialState: ISettingsState = {
 export const SettingsSlice = createSlice({
   name: "settings",
   initialState,
-  reducers: {},
+  reducers: {
+    clearErrorSettings (state) {
+      state.error = undefined;
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(changePasswordAction.pending, (state) => {
       state.loading = true;
@@ -44,4 +48,5 @@ function isError(action: AnyAction) {
   return action.type.endsWith('rejected')
 }
 
+export const {clearErrorSettings} = SettingsSlice.actions
 export default SettingsSlice.reducer

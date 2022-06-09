@@ -9,7 +9,6 @@ import {
   getAllSeekersAction
 
 } from "./customersAsyncAction";
-import {AuthSlice} from "../auth/authSlice";
 
 interface ICustomersState {
   seekers: Array<ISeekerResponse>,
@@ -34,6 +33,9 @@ export const CustomersSlice = createSlice({
     },
     deleteSeeker(state, action){
       state.seekers = state.seekers.filter((seeker) => seeker.id !== action.payload)
+    },
+    clearErrorCustomers (state) {
+      state.error = undefined;
     }
   },
   extraReducers: (builder => {
@@ -100,5 +102,5 @@ function isError(action: AnyAction) {
   return action.type.endsWith('rejected')
 }
 
-export const {deleteEmployee, deleteSeeker} = CustomersSlice.actions
+export const {deleteEmployee, deleteSeeker, clearErrorCustomers} = CustomersSlice.actions
 export default CustomersSlice.reducer

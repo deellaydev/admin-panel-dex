@@ -51,7 +51,6 @@ export const Invoices = () => {
     }
   ];
 
-
   const {TabPane} = Tabs;
   const {loading, invoices} = useAppSelector((state) => state.invoicesReducer)
   const dispatch = useAppDispatch();
