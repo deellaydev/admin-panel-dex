@@ -14,12 +14,15 @@ export const Reports = () => {
   const [files, setFiles] = useState<IFile[]>()
 
   useEffect(() => {
-    const interval = setInterval(async () => {
-      const response = await fetch(`http://localhost:3002/loadFiles`).then((r) => r.json()).then((x) => x)
-      setFiles(response)
-      console.log(response);
-    }, 10000)
-    return () => clearInterval(interval)
+    let timerId = setTimeout(async function request() {
+      if (!files) {
+        const response = await fetch(`http://localhost:3002/loadFiles`).then((res) => res.json()).then((files) => files)
+        setFiles(response)
+        console.log(response);
+        timerId = setTimeout(request, 10000)
+      }
+    }, 0)
+    return () => clearTimeout(timerId)
   }, [])
 
   return (
