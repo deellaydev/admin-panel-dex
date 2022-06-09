@@ -1,4 +1,4 @@
-import {AnyAction, createSlice} from "@reduxjs/toolkit";
+import {AnyAction, createSlice, isAsyncThunkAction} from "@reduxjs/toolkit";
 import {IUserResponse} from "../../api/dto/auth";
 import {loginAction, registrationAction, restorePasswordAction} from "./authAsyncAction";
 
@@ -14,6 +14,8 @@ const initialState: IAuthState = {
   error: undefined,
 }
 
+const isRequestAction = isAsyncThunkAction(loginAction, registrationAction, restorePasswordAction)
+
 export const AuthSlice = createSlice({
   name: "auth",
   initialState,
@@ -26,19 +28,11 @@ export const AuthSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(loginAction.pending, (state) => {
-      state.loading = true;
-      state.error = undefined;
-    });
     builder.addCase(loginAction.fulfilled, (state, action) => {
       state.loading = false;
       state.error = undefined;
       state.user = action.payload;
       localStorage.setItem("user", JSON.stringify(action.payload))
-    });
-    builder.addCase(registrationAction.pending, (state) => {
-      state.loading = true;
-      state.error = undefined;
     });
     builder.addCase(registrationAction.fulfilled, (state, action) => {
       state.loading = false;
@@ -46,10 +40,6 @@ export const AuthSlice = createSlice({
       state.user = action.payload;
       localStorage.setItem("user", JSON.stringify(action.payload))
     })
-    builder.addCase(restorePasswordAction.pending, (state) => {
-      state.loading = true;
-      state.error = undefined;
-    });
     builder.addCase(restorePasswordAction.fulfilled, (state, action) => {
       state.loading = false;
       state.error = undefined;
@@ -58,12 +48,25 @@ export const AuthSlice = createSlice({
     builder.addMatcher(isError, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+    });
+    builder.addMatcher(isLoading, (state) => {
+      state.loading = true;
+      state.error = undefined;
     })
   }
 })
 
 function isError(action: AnyAction) {
-  return action.type.endsWith('rejected')
+  if (isRequestAction(action)) {
+    return action.type.endsWith('rejected')
+  }
+  return false;
+}
+function isLoading(action: AnyAction) {
+  if (isRequestAction(action)) {
+    return action.type.endsWith('pending')
+  }
+  return false;
 }
 
 export const {signOut, clearErrorAuth} = AuthSlice.actions

@@ -1,4 +1,4 @@
-import {AnyAction, createSlice} from "@reduxjs/toolkit";
+import {AnyAction, createSlice, isAsyncThunkAction} from "@reduxjs/toolkit";
 import {IInvoice} from "../../api/dto/invoices";
 import {
   addNewInvoicesAction,
@@ -19,6 +19,8 @@ const initialState: IInvoicesState = {
   error: undefined
 }
 
+const isRequestAction = isAsyncThunkAction(addNewInvoicesAction, archiveInvoiceAction, deleteInvoiceAction, getAllInvoicesAction)
+
 export const InvoicesSlice = createSlice({
   name: "invoices",
   initialState,
@@ -31,27 +33,15 @@ export const InvoicesSlice = createSlice({
     }
   },
   extraReducers: (builder => {
-      builder.addCase(addNewInvoicesAction.pending, (state) => {
-        state.loading = true;
-        state.error = undefined
-      });
       builder.addCase(addNewInvoicesAction.fulfilled, (state, action) => {
         state.loading = false;
         state.error = undefined;
         state.invoices.push(action.payload);
       });
-      builder.addCase(getAllInvoicesAction.pending, (state) => {
-        state.loading = true;
-        state.error = undefined;
-      });
       builder.addCase(getAllInvoicesAction.fulfilled, (state, action) => {
         state.loading = false;
         state.error = undefined;
         state.invoices = action.payload;
-      });
-      builder.addCase(archiveInvoiceAction.pending, (state) => {
-        state.loading = true;
-        state.error = undefined;
       });
       builder.addCase(archiveInvoiceAction.fulfilled, (state, action) => {
         state.loading = false;
@@ -64,24 +54,39 @@ export const InvoicesSlice = createSlice({
           }
         })
       });
-      builder.addCase(deleteInvoiceAction.pending, (state) => {
-        state.loading = true;
-        state.error = undefined;
-      });
-      builder.addCase(deleteInvoiceAction.fulfilled, (state, action) => {
-        state.loading = false;
-        state.error = undefined;
-      });
       builder.addMatcher(isError, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
+      });
+      builder.addMatcher(isLoading, (state) => {
+        state.loading = true;
+        state.error = undefined;
+      });
+      builder.addMatcher(isComplete, (state) => {
+        state.loading = false;
+        state.error = undefined;
       })
     }
   )
 })
 
 function isError(action: AnyAction) {
-  return action.type.endsWith('rejected')
+  if (isRequestAction(action)) {
+    return action.type.endsWith('rejected')
+  }
+  return false;
+}
+function isLoading(action: AnyAction) {
+  if (isRequestAction(action)) {
+    return action.type.endsWith('pending')
+  }
+  return false;
+}
+function isComplete(action: AnyAction) {
+  if (isRequestAction(action)) {
+    return action.type.endsWith('fulfilled')
+  }
+  return false;
 }
 
 export const {deleteInvoice, clearErrorInvoice} = InvoicesSlice.actions

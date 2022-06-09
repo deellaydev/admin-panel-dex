@@ -1,4 +1,4 @@
-import {AnyAction, createSlice} from "@reduxjs/toolkit";
+import {AnyAction, createSlice, isAsyncThunkAction} from "@reduxjs/toolkit";
 import {changePasswordAction, changeUserDataAction} from "./settingsAsyncAction";
 
 interface ISettingsState {
@@ -11,6 +11,8 @@ const initialState: ISettingsState = {
   error: undefined
 }
 
+const isRequestAction = isAsyncThunkAction(changeUserDataAction, changePasswordAction)
+
 export const SettingsSlice = createSlice({
   name: "settings",
   initialState,
@@ -20,16 +22,8 @@ export const SettingsSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(changePasswordAction.pending, (state) => {
-      state.loading = true;
-      state.error = undefined;
-    });
     builder.addCase(changePasswordAction.fulfilled, (state, action) => {
       state.loading = false;
-      state.error = undefined;
-    });
-    builder.addCase(changeUserDataAction.pending, (state) => {
-      state.loading = true;
       state.error = undefined;
     });
     builder.addCase(changeUserDataAction.fulfilled, (state, action) => {
@@ -40,12 +34,25 @@ export const SettingsSlice = createSlice({
     builder.addMatcher(isError, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+    });
+    builder.addMatcher(isLoading, (state) => {
+      state.loading = true;
+      state.error = undefined;
     })
   }
 })
 
 function isError(action: AnyAction) {
-  return action.type.endsWith('rejected')
+  if (isRequestAction(action)) {
+    return action.type.endsWith('rejected')
+  }
+  return false;
+}
+function isLoading(action: AnyAction) {
+  if (isRequestAction(action)) {
+    return action.type.endsWith('pending')
+  }
+  return false;
 }
 
 export const {clearErrorSettings} = SettingsSlice.actions

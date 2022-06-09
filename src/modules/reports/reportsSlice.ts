@@ -1,4 +1,4 @@
-import {AnyAction, createSlice} from "@reduxjs/toolkit";
+import {AnyAction, createSlice, isAsyncThunkAction} from "@reduxjs/toolkit";
 import {IReportFile} from "../../api/dto/reports";
 import {getReportsAction} from "./reportsAsyncAction";
 
@@ -14,6 +14,7 @@ const initialState: IReportsState = {
   error: undefined
 }
 
+const isRequestAction = isAsyncThunkAction(getReportsAction)
 
 export const ReportsSlice = createSlice({
   name: "reports",
@@ -24,10 +25,6 @@ export const ReportsSlice = createSlice({
     }
   },
   extraReducers: (builder => {
-    builder.addCase(getReportsAction.pending, (state) => {
-      state.loading = true;
-      state.error = undefined;
-    });
     builder.addCase(getReportsAction.fulfilled, (state, action) => {
       state.loading = false;
       state.error = undefined;
@@ -36,12 +33,25 @@ export const ReportsSlice = createSlice({
     builder.addMatcher(isError, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+    });
+    builder.addMatcher(isLoading, (state) => {
+      state.loading = true;
+      state.error = undefined;
     })
   })
 })
 
 function isError(action: AnyAction) {
-  return action.type.endsWith('rejected')
+  if (isRequestAction(action)) {
+    return action.type.endsWith('rejected')
+  }
+  return false;
+}
+function isLoading(action: AnyAction) {
+  if (isRequestAction(action)) {
+    return action.type.endsWith('pending')
+  }
+  return false;
 }
 
 export const {clearErrorReports} = ReportsSlice.actions

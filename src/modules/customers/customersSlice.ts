@@ -1,4 +1,4 @@
-import {AnyAction, createSlice} from "@reduxjs/toolkit";
+import {AnyAction, createSlice, isAsyncThunkAction} from "@reduxjs/toolkit";
 import {IEmployeeResponse, ISeekerResponse} from "../../api/dto/customers";
 import {
   addNewSeekerAction,
@@ -24,6 +24,8 @@ const initialState: ICustomersState = {
   error: undefined
 }
 
+const isRequestAction = isAsyncThunkAction(addNewSeekerAction, addNewEmployeeAction, deleteSeekerAction, deleteEmployeeAction, getAllSeekersAction, getAllEmployeesAction)
+
 export const CustomersSlice = createSlice({
   name: "customers",
   initialState,
@@ -39,67 +41,58 @@ export const CustomersSlice = createSlice({
     }
   },
   extraReducers: (builder => {
-    builder.addCase(getAllSeekersAction.pending, (state) => {
-      state.loading = true;
-      state.error = undefined;
-    });
     builder.addCase(getAllSeekersAction.fulfilled, (state, action) => {
       state.loading = false;
       state.error = undefined;
       state.seekers = action.payload
-    });
-    builder.addCase(getAllEmployeesAction.pending, (state) => {
-      state.loading = true;
-      state.error = undefined;
     });
     builder.addCase(getAllEmployeesAction.fulfilled, (state, action) => {
       state.loading = false;
       state.error = undefined;
       state.employees = action.payload
     });
-    builder.addCase(addNewSeekerAction.pending, (state) => {
-      state.loading = true;
-      state.error = undefined;
-    });
     builder.addCase(addNewSeekerAction.fulfilled, (state, action) => {
       state.loading = false;
       state.error = undefined;
       state.seekers.push(action.payload)
-    });
-    builder.addCase(addNewEmployeeAction.pending, (state) => {
-      state.loading = true;
-      state.error = undefined;
     });
     builder.addCase(addNewEmployeeAction.fulfilled, (state, action) => {
       state.loading = false;
       state.error = undefined;
       state.employees.push(action.payload)
     });
-    builder.addCase(deleteEmployeeAction.pending, (state) => {
-      state.loading = true;
-      state.error = undefined;
-    });
-    builder.addCase(deleteEmployeeAction.fulfilled, (state, action) => {
-      state.loading = false;
-      state.error = undefined;
-    });
-    builder.addCase(deleteSeekerAction.pending, (state) => {
-      state.loading = true;
-      state.error = undefined;
-    });
-    builder.addCase(deleteSeekerAction.fulfilled, (state, action) => {
-      state.loading = false;
-      state.error = undefined;
-    });
     builder.addMatcher(isError, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+    });
+    builder.addMatcher(isLoading, (state) => {
+      state.loading = true;
+      state.error = undefined;
+    });
+    builder.addMatcher(isComplete, (state) => {
+      state.loading = false;
+      state.error = undefined;
     })
   })
 })
 
 function isError(action: AnyAction) {
-  return action.type.endsWith('rejected')
+  if (isRequestAction(action)) {
+    return action.type.endsWith('rejected')
+  }
+  return false;
+}
+function isLoading(action: AnyAction) {
+  if (isRequestAction(action)) {
+    return action.type.endsWith('pending')
+  }
+  return false;
+}
+function isComplete(action: AnyAction) {
+  if (isRequestAction(action)) {
+    return action.type.endsWith('fulfilled')
+  }
+  return false;
 }
 
 export const {deleteEmployee, deleteSeeker, clearErrorCustomers} = CustomersSlice.actions
