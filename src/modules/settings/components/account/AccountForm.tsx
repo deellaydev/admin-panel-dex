@@ -3,7 +3,7 @@ import {Button, Form, Input, Popconfirm} from "antd";
 import styled from "styled-components";
 import {IUserResponse} from "../../../../api/dto/auth";
 import {ChangePassword} from "./ChangePassword";
-import {useAppDispatch} from "../../../../store/hooks/hooks";
+import {useAppDispatch} from "../../../../store/reduxHooks";
 import {changeUserDataAction} from "../../settingsAsyncAction";
 
 export const AccountForm = () => {
@@ -13,7 +13,7 @@ export const AccountForm = () => {
 
   const currentUser: IUserResponse = JSON.parse(localStorage.getItem("user") || '').user;
 
-  const handleChangeUserData = async (value: any) => {
+  const handleChangeUserData = async () => {
     const updatedUser = {
       ...currentUser,
       name: form.getFieldValue('name'),

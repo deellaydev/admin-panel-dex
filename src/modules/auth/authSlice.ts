@@ -1,17 +1,16 @@
 import {AnyAction, createSlice, isAsyncThunkAction} from "@reduxjs/toolkit";
 import {IUserResponse} from "../../api/dto/auth";
 import {loginAction, registrationAction, restorePasswordAction} from "./authAsyncAction";
+import {STATUS} from "../../store/reduxHooks";
 
 interface IAuthState {
   user: IUserResponse | null;
-  loading: boolean;
-  error: string | undefined;
+  status: string
 }
 
 const initialState: IAuthState = {
   user: null,
-  loading: false,
-  error: undefined,
+  status: STATUS.NEVER
 }
 
 const isRequestAction = isAsyncThunkAction(loginAction, registrationAction, restorePasswordAction)
@@ -22,37 +21,29 @@ export const AuthSlice = createSlice({
   reducers: {
     signOut (state) {
       state.user = null;
-    },
-    clearErrorAuth (state) {
-      state.error = undefined;
     }
   },
   extraReducers: (builder) => {
     builder.addCase(loginAction.fulfilled, (state, action) => {
-      state.loading = false;
-      state.error = undefined;
+      state.status = STATUS.LOADED;
       state.user = action.payload;
       localStorage.setItem("user", JSON.stringify(action.payload))
     });
     builder.addCase(registrationAction.fulfilled, (state, action) => {
-      state.loading = false;
-      state.error = undefined;
+      state.status = STATUS.LOADED;
       state.user = action.payload;
       localStorage.setItem("user", JSON.stringify(action.payload))
     })
     builder.addCase(restorePasswordAction.fulfilled, (state, action) => {
-      state.loading = false;
-      state.error = undefined;
+      state.status = STATUS.LOADED;
       localStorage.setItem("restorePasswordUser", JSON.stringify(action.payload))
     });
-    builder.addMatcher(isError, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
-    });
     builder.addMatcher(isLoading, (state) => {
-      state.loading = true;
-      state.error = undefined;
+      state.status = STATUS.LOADING;
     })
+    builder.addMatcher(isError, (state) => {
+      state.status = STATUS.ERROR;
+    });
   }
 })
 
@@ -69,6 +60,6 @@ function isLoading(action: AnyAction) {
   return false;
 }
 
-export const {signOut, clearErrorAuth} = AuthSlice.actions
+export const {signOut} = AuthSlice.actions
 
 export default AuthSlice.reducer

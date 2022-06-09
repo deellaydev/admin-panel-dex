@@ -1,9 +1,9 @@
 import React from 'react';
 import Title from "antd/lib/typography/Title";
-import {Button, Checkbox, Form, Input, message} from "antd";
+import {Button, Checkbox, Form, Input,} from "antd";
 import {ILogin} from "../../../api/dto/auth";
 import styled from "styled-components";
-import {useAppDispatch} from "../../../store/hooks/hooks";
+import {useAppDispatch} from "../../../store/reduxHooks";
 import {loginAction} from "../authAsyncAction";
 import {useNavigate} from "react-router-dom";
 
@@ -15,8 +15,7 @@ export const LoginForm = () => {
   const getValues = async ({email, password}: ILogin) => {
     await dispatch(loginAction({
       data: {email, password},
-      navigate: () => navigate('/'),
-      success: () => message.success("Вы успешно вошли")
+      navigate: () => navigate('/')
     }))
   }
 

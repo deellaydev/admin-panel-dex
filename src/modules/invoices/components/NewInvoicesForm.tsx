@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import styled from "styled-components";
 import {Button, DatePicker, Form, Input, InputNumber, Modal, Select} from "antd";
 import moment from 'moment'
-import {useAppDispatch} from "../../../store/hooks/hooks";
+import {useAppDispatch} from "../../../store/reduxHooks";
 import {addNewInvoicesAction} from "../invoicesAsyncAction";
 
 const {Option} = Select;

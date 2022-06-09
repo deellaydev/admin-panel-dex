@@ -4,7 +4,7 @@ import {DashboardHeader} from "../../../common/components/DashBoard/DashboardHea
 import {Button, Tabs} from 'antd';
 import {TabWrapperComponent} from "../../../common/components/DashBoard/TabWrapperComponent";
 import {NewInvoicesForm} from "./NewInvoicesForm";
-import {useAppDispatch, useAppSelector} from "../../../store/hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../../../store/reduxHooks";
 import {getAllInvoicesAction} from "../invoicesAsyncAction";
 import {TableComponent} from "../../../common/components/DashBoard/TableComponent";
 import {IInvoice} from "../../../api/dto/invoices";

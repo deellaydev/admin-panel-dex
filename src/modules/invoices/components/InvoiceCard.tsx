@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {IInvoice} from "../../../api/dto/invoices";
-import {useAppDispatch} from "../../../store/hooks/hooks";
+import {useAppDispatch} from "../../../store/reduxHooks";
 import {archiveInvoiceAction, deleteInvoiceAction} from "../invoicesAsyncAction";
 import {Button, message, Modal, Popconfirm} from "antd";
 import moment from "moment";

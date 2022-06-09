@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {GlobalStyle} from "./assets/style/GlobalStyle";
 import {Route, Routes} from "react-router-dom";
 import {AuthLayout} from "./pages/AuthLayout";
@@ -17,42 +17,9 @@ import {Dashboard} from "./modules/dashboard/components/Dashboard";
 import {Invoices} from "./modules/invoices/components/Invoices";
 import {Customers} from "./modules/customers/components/Customers";
 import {Settings} from "./modules/settings/components/Settings";
-import {useAppDispatch, useAppSelector} from "./store/hooks/hooks";
-import {message} from "antd";
-import {clearErrorAuth} from "./modules/auth/authSlice";
 import {Reports} from "./modules/reports/components/Reports";
-import {clearErrorCustomers} from "./modules/customers/customersSlice";
-import {clearErrorInvoice} from "./modules/invoices/invoicesSlice";
-import {clearErrorSettings} from "./modules/settings/settingsSlice";
-import {clearErrorReports} from "./modules/reports/reportsSlice";
 
 export const App = () => {
-
-  const dispatch = useAppDispatch()
-
-  const authError = useAppSelector((state) => state.authReducer.error)
-  const customersError = useAppSelector((state) => state.customersReducer.error)
-  const invoicesError = useAppSelector((state) => state.invoicesReducer.error)
-  const settingsError = useAppSelector((state) => state.settingsReducer.error)
-
-  useEffect(() => {
-    if (authError) {
-      message.error(authError).then();
-      dispatch(clearErrorAuth())
-    } else if (customersError) {
-      message.error(customersError).then()
-      dispatch(clearErrorCustomers())
-    } else if (invoicesError) {
-      message.error(invoicesError).then()
-      dispatch(clearErrorInvoice())
-    } else if (settingsError) {
-      message.error(settingsError).then()
-      dispatch(clearErrorSettings())
-    } else {
-      return
-    }
-  }, [authError, customersError, invoicesError, settingsError])
-
 
   return (
     <>

@@ -3,7 +3,7 @@ import {BreadCrumbs} from "./BreadCrumbs";
 import {Button, Typography} from 'antd'
 import {useLocation, useNavigate} from "react-router-dom";
 import styled from "styled-components";
-import {useAppDispatch} from "../../../store/hooks/hooks";
+import {useAppDispatch} from "../../../store/reduxHooks";
 import {signOut} from "../../../modules/auth/authSlice";
 
 export const DashboardHeader = () => {

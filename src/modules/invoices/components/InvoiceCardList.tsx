@@ -5,7 +5,7 @@ import {IInvoice} from "../../../api/dto/invoices";
 import styled from "styled-components";
 import {archiveInvoiceAction, deleteInvoiceAction} from "../invoicesAsyncAction";
 import {deleteInvoice} from "../invoicesSlice";
-import {useAppDispatch} from "../../../store/hooks/hooks";
+import {useAppDispatch} from "../../../store/reduxHooks";
 
 interface IProps {
   invoice: IInvoice

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from "styled-components";
-import {Button, Form, Input, message, Typography} from "antd";
+import {Button, Form, Input, Typography} from "antd";
 import {useNavigate} from "react-router-dom";
-import {useAppDispatch} from "../../../store/hooks/hooks";
+import {useAppDispatch} from "../../../store/reduxHooks";
 import {restorePasswordAction} from "../authAsyncAction";
 
 interface IRestorePassword {
@@ -19,7 +19,7 @@ export const ForgetPasswordForm = () => {
   const restorePassword = async ({email}: IRestorePassword) => {
     await dispatch(restorePasswordAction({
       email,
-      success: () => message.success("Пользователь найден", 3).then(() => navigate('/restorePasswordSuccess'))
+      navigate: ()  => navigate('/restorePasswordSuccess')
     }))
   }
 

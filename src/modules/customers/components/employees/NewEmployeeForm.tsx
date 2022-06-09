@@ -2,9 +2,9 @@ import React, {FC} from 'react';
 import styled from "styled-components";
 import Title from "antd/lib/typography/Title";
 import {Form, Input, Select, Button, Modal} from "antd";
-import {useAppDispatch} from "../../../../store/hooks/hooks";
+import {useAppDispatch} from "../../../../store/reduxHooks";
 import {IEmployee} from "../../../../api/dto/customers";
-import {addNewEmployeeAction, getAllEmployeesAction} from "../../customersAsyncAction";
+import {addNewEmployeeAction} from "../../customersAsyncAction";
 
 interface IProps {
   isModalVisible: boolean;

@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {IEmployeeResponse} from "../../../../api/dto/customers";
 import {Button, Modal, Popconfirm} from "antd";
-import {useAppDispatch} from "../../../../store/hooks/hooks";
+import {useAppDispatch} from "../../../../store/reduxHooks";
 import {deleteEmployeeAction} from "../../customersAsyncAction";
 import moment from "moment";
 import {deleteEmployee} from "../../customersSlice";

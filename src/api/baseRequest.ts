@@ -6,35 +6,35 @@ interface IRequestData {
 }
 
 export const baseRequest = async (url: string, data: IRequestData, token: string | undefined) => {
-  try {
+    try {
+      const tokenForHeaders = token ? {'Authorization': `Bearer ${token}`} : {}
+      const multiPartForHeaders = (typeof data.body === 'string') ? {'Content-Type': 'application/json'} : {}
 
-    const tokenForHeaders = token ? {'Authorization': `Bearer ${token}`} : {}
-    const multiPartForHeaders = (typeof data.body === 'string') ? {'Content-Type': 'application/json'} : {}
-
-    const response = await fetch(url, {
-      ...data,
-      // @ts-ignore
-      headers: {
-        ...tokenForHeaders,
-        ...multiPartForHeaders
-      }
-    });
-    if (response.ok) {
-      if (response.headers.get('Content-Length') === '0') {
-        return true;
-      }
-      const responseType = response.headers.get('Content-Type');
-      let result;
-      if (responseType === 'application/json') {
-        result = await response.text();
+      const response = await fetch(url, {
+        ...data,
+        // @ts-ignore
+        headers: {
+          ...tokenForHeaders,
+          ...multiPartForHeaders
+        }
+      });
+      if (response.ok) {
+        if (response.headers.get('Content-Length') === '0') {
+          return true;
+        }
+        const responseType = response.headers.get('Content-Type');
+        let result;
+        if (responseType === 'application/json') {
+          result = await response.text();
+          return result;
+        }
+        result = await response.json();
         return result;
       }
-      result = await response.json();
-      return result;
     }
-  } catch (e: any) {
-    throw new Error(e.message)
-  }
+    catch (e: any) {
+      throw new Error(e.message)
+    }
 }
 
 export const get = (url: string, token?: string) => baseRequest(`${BASE_URL}${url}`, {method: 'GET'}, token)

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {DashboardHeader} from "../../../common/components/DashBoard/DashboardHeader";
 import {CustomersDiagram, IInvoicesDiagram} from "./DashBoardData";
 import {Pie} from "@ant-design/charts";
-import {useAppDispatch, useAppSelector} from "../../../store/hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../../../store/reduxHooks";
 import {getAllEmployeesAction, getAllSeekersAction} from "../../customers/customersAsyncAction";
 import {getAllInvoicesAction} from "../../invoices/invoicesAsyncAction";
 

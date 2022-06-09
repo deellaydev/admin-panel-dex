@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from "styled-components";
 import Title from "antd/lib/typography/Title";
-import {Typography, Form, Input, Select, Checkbox, Button, message} from "antd";
+import {Typography, Form, Input, Select, Checkbox, Button} from "antd";
 import {useNavigate} from "react-router-dom";
 import {IRegister} from "../../../api/dto/auth";
-import {useAppDispatch} from "../../../store/hooks/hooks";
+import {useAppDispatch} from "../../../store/reduxHooks";
 import {registrationAction} from "../authAsyncAction";
 
 export const RegisterForm = () => {
@@ -18,7 +18,6 @@ export const RegisterForm = () => {
   const getValues = async (data: IRegister) => {
     await dispatch(registrationAction({
       data,
-      success: () => message.success("Вы успешно заренестрированы"),
       navigate: () => navigate('/')
     }))
   }

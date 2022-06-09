@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import styled from "styled-components";
 import {Button, Card, Popconfirm} from "antd";
 import {ISeekerResponse} from "../../../../api/dto/customers";
-import {useAppDispatch} from "../../../../store/hooks/hooks";
+import {useAppDispatch} from "../../../../store/reduxHooks";
 import {deleteSeekerAction} from "../../customersAsyncAction";
 import {deleteSeeker} from "../../customersSlice";
 

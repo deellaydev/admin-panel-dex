@@ -1,8 +1,8 @@
 import React, {FC} from 'react';
 import {ISeekerResponse} from "../../../../api/dto/customers";
-import {useAppDispatch} from "../../../../store/hooks/hooks";
+import {useAppDispatch} from "../../../../store/reduxHooks";
 import {Button, Modal, Popconfirm} from "antd";
-import {deleteSeekerAction, getAllSeekersAction} from "../../customersAsyncAction";
+import {deleteSeekerAction} from "../../customersAsyncAction";
 import moment from "moment";
 import {deleteSeeker} from "../../customersSlice";
 

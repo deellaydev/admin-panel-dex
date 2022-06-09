@@ -5,7 +5,7 @@ import {Button, Card, Popconfirm} from "antd";
 import moment from "moment";
 import {deleteEmployeeAction} from "../../customersAsyncAction";
 import {deleteEmployee} from "../../customersSlice";
-import {useAppDispatch} from "../../../../store/hooks/hooks";
+import {useAppDispatch} from "../../../../store/reduxHooks";
 
 interface IProps {
   employee: IEmployeeResponse

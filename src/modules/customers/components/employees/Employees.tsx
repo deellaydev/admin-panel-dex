@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {TableComponent} from "../../../../common/components/DashBoard/TableComponent";
-import {useAppDispatch, useAppSelector} from "../../../../store/hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../store/reduxHooks";
 import {getAllEmployeesAction} from "../../customersAsyncAction";
 import {Button, Tag} from "antd";
 import styled from "styled-components";
