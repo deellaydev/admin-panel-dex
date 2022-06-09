@@ -1,23 +1,20 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {DashboardHeader} from "../../../common/components/DashBoard/DashboardHeader";
 import styled from "styled-components";
 import {TabWrapperComponent} from "../../../common/components/DashBoard/TabWrapperComponent";
-import {Button, Tabs} from "antd";
-import {CustomersWrapper} from "./CustomersWrapper";
-import {TableComponent} from "../../../common/components/DashBoard/TableComponent";
-import {useAppSelector} from "../../../store/hooks/hooks";
+import {Tabs} from "antd";
 import {Seekers} from "./seekers/Seekers";
 import {Employees} from "./employees/Employees";
 
 export const Customers = () => {
 
-  const { TabPane } = Tabs;
+  const {TabPane} = Tabs;
 
   return (
     <Container>
       <DashboardHeader/>
       <HeaderContainer>
-        <StyledTabs defaultActiveKey="1" >
+        <StyledTabs defaultActiveKey="1">
           <TabPane tab="Employees" key="employees">
             <TabWrapperComponent>
               <Employees/>
@@ -25,7 +22,7 @@ export const Customers = () => {
           </TabPane>
           <TabPane tab="Seekers" key="seekers">
             <TabWrapperComponent>
-                <Seekers/>
+              <Seekers/>
             </TabWrapperComponent>
           </TabPane>
         </StyledTabs>
@@ -43,7 +40,7 @@ const HeaderContainer = styled.div`
   justify-content: space-between;
 `
 const StyledTabs = styled(Tabs)`
-  .ant-tabs-nav{
+  .ant-tabs-nav {
     margin-bottom: 0;
   }
 `

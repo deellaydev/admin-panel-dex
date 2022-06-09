@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import styled from "styled-components";
 import {Button, Form, Input, message, Typography} from "antd";
 import {useNavigate} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../../store/hooks/hooks";
+import {useAppDispatch} from "../../../store/hooks/hooks";
 import {restorePasswordAction} from "../authAsyncAction";
 
 interface IRestorePassword {
@@ -11,20 +11,24 @@ interface IRestorePassword {
 
 export const ForgetPasswordForm = () => {
 
-  const { Title, Paragraph } = Typography
+  const {Title, Paragraph} = Typography
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const restorePassword = async ({email} : IRestorePassword) => {
-    await dispatch(restorePasswordAction({email, success: () => message.success("Пользователь найден", 3).then(() => navigate('/restorePasswordSuccess'))}))
+  const restorePassword = async ({email}: IRestorePassword) => {
+    await dispatch(restorePasswordAction({
+      email,
+      success: () => message.success("Пользователь найден", 3).then(() => navigate('/restorePasswordSuccess'))
+    }))
   }
 
   return (
     <FormWrapper>
       <Title style={{marginBottom: "25px"}}>StaffPro</Title>
       <Title level={5}>Забыли пароль?</Title>
-      <Paragraph style={{textAlign: "left"}}>Введите ваш эл. адрес, чтобы восстановить доступ к своему аккаунту</Paragraph>
+      <Paragraph style={{textAlign: "left"}}>Введите ваш эл. адрес, чтобы восстановить доступ к своему
+        аккаунту</Paragraph>
       <Form
         name={"restorePassword"}
         onFinish={restorePassword}>

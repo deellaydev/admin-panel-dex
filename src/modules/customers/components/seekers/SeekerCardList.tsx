@@ -24,10 +24,10 @@ export const SeekerCardList: FC<IProps> = ({seeker}) => {
         <Button size={"small"} type={"primary"} key={"deleteEmployee"}>Удалить соискателя</Button>
       </Popconfirm>
     }>
-      <p><strong>ФИО соискателя:</strong>  {seeker.fio}</p>
-      <p><strong>Дата рождения:</strong>  {seeker.birthDay}</p>
-      <p><strong>Номер телефона:</strong>  {seeker.telNumber}</p>
-      <p><strong>Пол:</strong>  {seeker.sex}</p>
+      <p><strong>ФИО соискателя:</strong> {seeker.fio}</p>
+      <p><strong>Дата рождения:</strong> {seeker.birthDay}</p>
+      <p><strong>Номер телефона:</strong> {seeker.telNumber}</p>
+      <p><strong>Пол:</strong> {seeker.sex}</p>
     </StyledCard>
   );
 };

@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import styled from "styled-components";
 import {DashboardHeader} from "../../../common/components/DashBoard/DashboardHeader";
 import {CustomersDiagram, IInvoicesDiagram} from "./DashBoardData";
 import {Pie} from "@ant-design/charts";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks/hooks";
 import {getAllEmployeesAction, getAllSeekersAction} from "../../customers/customersAsyncAction";
-import {getAllInvoices} from "../../invoices/invoicesAsyncAction";
+import {getAllInvoicesAction} from "../../invoices/invoicesAsyncAction";
 
 export const Dashboard = () => {
 
@@ -17,7 +17,7 @@ export const Dashboard = () => {
   useEffect(() => {
     dispatch(getAllEmployeesAction())
     dispatch(getAllSeekersAction())
-    dispatch(getAllInvoices())
+    dispatch(getAllInvoicesAction())
   }, [])
 
   return (
@@ -25,17 +25,20 @@ export const Dashboard = () => {
       <DashboardHeader/>
       <DashboardWrapper>
         <DiagramsWrapper>
-          <StyledPie data={CustomersDiagram({countEmployee: employees.length, countSeekers: seekers.length})} angleField={'value'} colorField={'type'}
-               label={
-                 {
-                   type: 'outer',
-                   content: '{name} {percentage}'
-                 }
-               } radius={0.8}/>
-          <StyledPie data={IInvoicesDiagram({countDue: invoices.filter((invoice) => invoice.isDue).length,
+          <StyledPie data={CustomersDiagram({countEmployee: employees.length, countSeekers: seekers.length})}
+                     angleField={'value'} colorField={'type'}
+                     label={
+                       {
+                         type: 'outer',
+                         content: '{name} {percentage}'
+                       }
+                     } radius={0.8}/>
+          <StyledPie data={IInvoicesDiagram({
+            countDue: invoices.filter((invoice) => invoice.isDue).length,
             countPayment: invoices.filter((invoice) => invoice.isPayment).length,
             countNoPayment: invoices.filter((invoice) => !invoice.isPayment).length,
-            countArchived: invoices.filter((invoice) => invoice.isArchived).length})}
+            countArchived: invoices.filter((invoice) => invoice.isArchived).length
+          })}
 
                      angleField={'value'} colorField={'type'}
                      label={

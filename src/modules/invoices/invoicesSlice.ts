@@ -1,6 +1,11 @@
 import {AnyAction, createSlice} from "@reduxjs/toolkit";
 import {IInvoice} from "../../api/dto/invoices";
-import {addNewInvoices, archiveInvoiceAction, deleteInvoiceAction, getAllInvoices} from "./invoicesAsyncAction";
+import {
+  addNewInvoicesAction,
+  archiveInvoiceAction,
+  deleteInvoiceAction,
+  getAllInvoicesAction
+} from "./invoicesAsyncAction";
 
 interface IInvoicesState {
   invoices: Array<IInvoice>
@@ -18,25 +23,25 @@ export const InvoicesSlice = createSlice({
   name: "invoices",
   initialState,
   reducers: {
-    deleteInvoice(state, action){
+    deleteInvoice(state, action) {
       state.invoices = state.invoices.filter((invoice) => invoice.id !== action.payload)
     }
   },
   extraReducers: (builder => {
-      builder.addCase(addNewInvoices.pending, (state) => {
+      builder.addCase(addNewInvoicesAction.pending, (state) => {
         state.loading = true;
         state.error = undefined
       });
-      builder.addCase(addNewInvoices.fulfilled, (state, action) => {
+      builder.addCase(addNewInvoicesAction.fulfilled, (state, action) => {
         state.loading = false;
         state.error = undefined;
         state.invoices.push(action.payload);
       });
-      builder.addCase(getAllInvoices.pending, (state) => {
+      builder.addCase(getAllInvoicesAction.pending, (state) => {
         state.loading = true;
         state.error = undefined;
       });
-      builder.addCase(getAllInvoices.fulfilled, (state, action) => {
+      builder.addCase(getAllInvoicesAction.fulfilled, (state, action) => {
         state.loading = false;
         state.error = undefined;
         state.invoices = action.payload;
@@ -63,7 +68,7 @@ export const InvoicesSlice = createSlice({
       builder.addCase(deleteInvoiceAction.fulfilled, (state, action) => {
         state.loading = false;
         state.error = undefined;
-      })
+      });
       builder.addMatcher(isError, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
@@ -76,5 +81,5 @@ function isError(action: AnyAction) {
   return action.type.endsWith('rejected')
 }
 
-export const { deleteInvoice } = InvoicesSlice.actions
+export const {deleteInvoice} = InvoicesSlice.actions
 export default InvoicesSlice.reducer

@@ -1,8 +1,8 @@
-import React, { useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {TableComponent} from "../../../../common/components/DashBoard/TableComponent";
 import {useAppDispatch, useAppSelector} from "../../../../store/hooks/hooks";
 import {getAllEmployeesAction} from "../../customersAsyncAction";
-import {Button, Modal, Tag} from "antd";
+import {Button, Tag} from "antd";
 import styled from "styled-components";
 import {EmployeeCard} from "./EmployeeCard";
 import {IEmployeeResponse} from "../../../../api/dto/customers";
@@ -28,7 +28,7 @@ export const Employees = () => {
       dataIndex: 'post',
       key: 'post',
       render: (text: string) => {
-        switch (text){
+        switch (text) {
           case 'Директор':
             return <Tag color={"red"}>{text.toUpperCase()}</Tag>
           case 'Начальник отдела продаж':
@@ -75,7 +75,7 @@ export const Employees = () => {
     }
   ]
 
-  const { loading, employees} = useAppSelector((state) => state.customersReducer)
+  const {loading, employees} = useAppSelector((state) => state.customersReducer)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -104,7 +104,8 @@ export const Employees = () => {
       </TableBlock>
       <StyledButton size={"large"} type={"primary"} onClick={showModalAddEmployee}>Добавить сотрудника</StyledButton>
       <NewEmployeeForm setIsModalVisible={setIsModalAddEmployeeVisible} isModalVisible={isModalAddEmployeeVisible}/>
-      <EmployeeCard isModalVisible={isModalEmployeeVisible} setIsModalVisible={setIsModalEmployeeVisible} employee={modalEmployeeData}/>
+      <EmployeeCard isModalVisible={isModalEmployeeVisible} setIsModalVisible={setIsModalEmployeeVisible}
+                    employee={modalEmployeeData}/>
     </CustomersInner>
   );
 };
@@ -119,7 +120,7 @@ const TableBlock = styled.div`
 `
 const StyledButton = styled(Button)`
   justify-content: flex-end;
-  @media(max-width: 1000px) {
+  @media (max-width: 1000px) {
     bottom: 10px;
     position: absolute;
     width: 200px;

@@ -23,12 +23,12 @@ export const DashBoardLayout = () => {
 const Container = styled.div`
   display: flex;
 `
-const MenuWrapper = styled.div<{activeMenu: boolean}>`
+const MenuWrapper = styled.div<{ activeMenu: boolean }>`
   max-width: 200px;
   width: 100%;
   transition: all .5s;
   z-index: 1;
-  @media(max-width: 900px) {
+  @media (max-width: 900px) {
     position: absolute;
     left: ${({activeMenu}) => activeMenu ? '0' : '-200px'};
   }
@@ -43,7 +43,7 @@ const MenuButton = styled(MenuOutlined)`
   position: absolute;
   display: none;
   z-index: 3;
-  @media(max-width: 900px) {
+  @media (max-width: 900px) {
     display: block;
     top: 15px;
     left: 15px;

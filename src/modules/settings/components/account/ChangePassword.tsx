@@ -61,5 +61,5 @@ export const ChangePassword = () => {
   );
 };
 const ChangePasswordWrapper = styled.div`
-  
+
 `

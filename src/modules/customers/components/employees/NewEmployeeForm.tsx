@@ -14,9 +14,9 @@ interface IProps {
 export const NewEmployeeForm: FC<IProps> = ({isModalVisible, setIsModalVisible}) => {
 
   const {Option} = Select
-  const [form] = Form.useForm()
 
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
+  const [form] = Form.useForm()
 
   const getValues = async (data: IEmployee) => {
     switch (data.post) {
@@ -52,7 +52,8 @@ export const NewEmployeeForm: FC<IProps> = ({isModalVisible, setIsModalVisible})
 
   return (
     <Modal title={"Добавить сотрудника"} visible={isModalVisible} onCancel={handleCancel} footer={[
-      <Button style={{width: "100%"}} type={"primary"} size={"large"} htmlType={"submit"} form={"addNewEmployee"} key={"addButton"}>Добавить
+      <Button style={{width: "100%"}} type={"primary"} size={"large"} htmlType={"submit"} form={"addNewEmployee"}
+              key={"addButton"}>Добавить
         сотрудника</Button>
     ]}>
       <FormWrapper>

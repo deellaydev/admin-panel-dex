@@ -1,17 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import {DashboardHeader} from "../../../common/components/DashBoard/DashboardHeader";
-import {Button, Modal, Pagination, Tabs} from 'antd';
+import {Button, Tabs} from 'antd';
 import {TabWrapperComponent} from "../../../common/components/DashBoard/TabWrapperComponent";
 import {NewInvoicesForm} from "./NewInvoicesForm";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks/hooks";
-import {getAllInvoices} from "../invoicesAsyncAction";
+import {getAllInvoicesAction} from "../invoicesAsyncAction";
 import {TableComponent} from "../../../common/components/DashBoard/TableComponent";
 import {IInvoice} from "../../../api/dto/invoices";
 import moment from "moment";
 import {InvoicesCardWrapper} from "./InvoicesCardWrapper";
 import {InvoiceCard} from "./InvoiceCard";
-import {IEmployeeResponse} from "../../../api/dto/customers";
 
 export const Invoices = () => {
 
@@ -54,7 +53,7 @@ export const Invoices = () => {
 
 
   const {TabPane} = Tabs;
-  const {loading, error, invoices} = useAppSelector((state) => state.invoicesReducer)
+  const {loading, invoices} = useAppSelector((state) => state.invoicesReducer)
   const dispatch = useAppDispatch();
 
   const [isModalInvoiceVisible, setIsModalInvoiceVisible] = useState(false);
@@ -72,7 +71,7 @@ export const Invoices = () => {
   };
 
   useEffect(() => {
-    dispatch(getAllInvoices())
+    dispatch(getAllInvoicesAction())
   }, [])
 
   return (
@@ -127,7 +126,8 @@ export const Invoices = () => {
         </StyledTabs>
         <Button type={"primary"} size={"large"} onClick={showAddInvoiceModal}>+ Add new invoice</Button>
       </HeaderContainer>
-      <InvoiceCard isModalVisible={isModalInvoiceVisible} setIsModalVisible={setIsModalInvoiceVisible} invoice={modalInvoiceData}/>
+      <InvoiceCard isModalVisible={isModalInvoiceVisible} setIsModalVisible={setIsModalInvoiceVisible}
+                   invoice={modalInvoiceData}/>
       <NewInvoicesForm setIsModalVisible={setIsModalAddInvoiceVisible} isModalVisible={isModalAddInvoiceVisible}/>
     </Container>
   );

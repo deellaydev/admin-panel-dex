@@ -4,7 +4,7 @@ import {useAppDispatch} from "../../../../store/hooks/hooks";
 import {Button, Modal, Popconfirm} from "antd";
 import {deleteSeekerAction, getAllSeekersAction} from "../../customersAsyncAction";
 import moment from "moment";
-import {deleteEmployee, deleteSeeker} from "../../customersSlice";
+import {deleteSeeker} from "../../customersSlice";
 
 interface IProps {
   seeker: ISeekerResponse | undefined;

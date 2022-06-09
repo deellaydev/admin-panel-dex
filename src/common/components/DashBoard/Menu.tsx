@@ -1,4 +1,4 @@
-import React, {BaseSyntheticEvent} from 'react';
+import React from 'react';
 import {Menu} from "antd";
 import {MenuProps} from "antd";
 import {
@@ -44,7 +44,8 @@ const items: MenuProps['items'] = [
 
 export const MenuComponent = () => {
 
-  const location = useLocation();
+  const location = useLocation()
+  const navigate = useNavigate()
 
   const handleNavigate = (pathArray: string[]) => {
     let path = '';
@@ -59,8 +60,6 @@ export const MenuComponent = () => {
     }
     navigate(path);
   }
-
-  const navigate = useNavigate()
 
   return (
     <Menu

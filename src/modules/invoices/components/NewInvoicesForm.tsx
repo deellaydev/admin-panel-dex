@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
 import styled from "styled-components";
-import { Button, DatePicker, Form, Input, InputNumber, Modal, Select} from "antd";
+import {Button, DatePicker, Form, Input, InputNumber, Modal, Select} from "antd";
 import moment from 'moment'
 import {useAppDispatch} from "../../../store/hooks/hooks";
-import {addNewInvoices} from "../invoicesAsyncAction";
+import {addNewInvoicesAction} from "../invoicesAsyncAction";
 
 const {Option} = Select;
 
@@ -46,7 +46,7 @@ export const NewInvoicesForm: FC<IProps> = ({isModalVisible, setIsModalVisible})
       isArchived: false
     }
 
-    await dispatch(addNewInvoices(invoice))
+    await dispatch(addNewInvoicesAction(invoice))
     form.resetFields();
   }
 
@@ -56,7 +56,8 @@ export const NewInvoicesForm: FC<IProps> = ({isModalVisible, setIsModalVisible})
 
   return (
     <Modal title={"Добавить счёт"} visible={isModalVisible} onCancel={handleCancel} footer={[
-      <Button size={"large"} type={"primary"} style={{width: "100%"}} form={"newInvoice"} htmlType={"submit"} key={"addInvoice"}>Добавить счёт</Button>
+      <Button size={"large"} type={"primary"} style={{width: "100%"}} form={"newInvoice"} htmlType={"submit"}
+              key={"addInvoice"}>Добавить счёт</Button>
     ]}>
       <FormWrapper>
         <Form

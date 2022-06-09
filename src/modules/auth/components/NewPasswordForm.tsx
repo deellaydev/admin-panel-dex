@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
 import {Button, Form, Input, Typography} from "antd";
-import {useAppDispatch} from "../../../store/hooks/hooks";
 
 interface IChangePassword {
   password: string;

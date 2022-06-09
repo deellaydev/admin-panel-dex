@@ -1,6 +1,16 @@
 {
   "users": [
-
+    {
+      "email": "admin@gmail.com",
+      "password": "$2a$10$h2bOUha0uPdEsj561wdW1.KSGt1C7jDBaEFaZ956zuS193/Ms0Fpa",
+      "surname": "Демян",
+      "name": "Владислав",
+      "patronymic": "Александрович",
+      "birthDay": 1010440800000,
+      "telNumber": "+37368622868",
+      "sex": "Мужской",
+      "id": 1
+    }
   ],
   "invoices": [
     {

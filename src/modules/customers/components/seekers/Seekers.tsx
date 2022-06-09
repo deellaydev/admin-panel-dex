@@ -2,11 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {TableComponent} from "../../../../common/components/DashBoard/TableComponent";
 import {useAppDispatch, useAppSelector} from "../../../../store/hooks/hooks";
 import {getAllSeekersAction} from "../../customersAsyncAction";
-import {Button, Modal} from "antd";
+import {Button} from "antd";
 import styled from "styled-components";
 import {NewSeekerForm} from "./NewSeekerForm";
 import {SeekersCardWrapper} from "./SeekersCardWrapper";
-import {IEmployeeResponse, ISeeker, ISeekerResponse} from "../../../../api/dto/customers";
+import {ISeekerResponse} from "../../../../api/dto/customers";
 import {SeekerCard} from "./SeekerCard";
 
 export const Seekers = () => {
@@ -47,7 +47,7 @@ export const Seekers = () => {
     }
   ];
 
-  const { loading, seekers} = useAppSelector((state) => state.customersReducer)
+  const {loading, seekers} = useAppSelector((state) => state.customersReducer)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -76,7 +76,8 @@ export const Seekers = () => {
       </TableBlock>
       <StyledButton size={"large"} type={"primary"} onClick={showModalAddSeeker}>Добавить соискателя</StyledButton>
       <NewSeekerForm isModalVisible={isModalAddSeekerVisible} setIsModalVisible={setIsModalAddSeekerVisible}/>
-      <SeekerCard seeker={modalSeekerData} isModalVisible={isModalSeekerVisible} setIsModalVisible={setIsModalSeekerVisible}/>
+      <SeekerCard seeker={modalSeekerData} isModalVisible={isModalSeekerVisible}
+                  setIsModalVisible={setIsModalSeekerVisible}/>
     </CustomersInner>
   );
 };

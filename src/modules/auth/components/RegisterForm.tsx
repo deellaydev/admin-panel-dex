@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import styled from "styled-components";
 import Title from "antd/lib/typography/Title";
 import {Typography, Form, Input, Select, Checkbox, Button, message} from "antd";
 import {useNavigate} from "react-router-dom";
 import {IRegister} from "../../../api/dto/auth";
-import {useAppDispatch, useAppSelector} from "../../../store/hooks/hooks";
+import {useAppDispatch} from "../../../store/hooks/hooks";
 import {registrationAction} from "../authAsyncAction";
 
 export const RegisterForm = () => {
@@ -16,7 +16,11 @@ export const RegisterForm = () => {
   const dispatch = useAppDispatch();
 
   const getValues = async (data: IRegister) => {
-    await dispatch(registrationAction(data)).then(() => navigate('/'))
+    await dispatch(registrationAction({
+      data,
+      success: () => message.success("Вы успешно заренестрированы"),
+      navigate: () => navigate('/')
+    }))
   }
 
   return (

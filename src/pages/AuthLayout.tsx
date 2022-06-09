@@ -1,12 +1,9 @@
-import React, {FC, JSXElementConstructor, useEffect} from 'react';
+import React, {FC} from 'react';
 import styled from "styled-components";
-import {Col, Dropdown, Layout, Menu, message, Row, Typography} from "antd";
+import {Col, Dropdown, Menu, Row, Typography} from "antd";
 import {GlobalOutlined} from "@ant-design/icons";
 import artwork from "../assets/icons/artwork.png";
-import {useAppDispatch, useAppSelector} from "../store/hooks/hooks";
-import {ILogin} from "../api/dto/auth";
-import {loginAction} from "../modules/auth/authAsyncAction";
-import {Outlet, useLocation, useNavigate} from 'react-router-dom'
+import {useLocation, useNavigate} from 'react-router-dom'
 
 const menu = (
   <Menu
@@ -32,20 +29,18 @@ interface IProps {
 
 export const AuthLayout: FC<IProps> = ({children}) => {
 
-  const { Paragraph, Title } = Typography
+  const {Paragraph, Title} = Typography
 
-  const { pathname } = useLocation();
+  const {pathname} = useLocation();
   const navigate = useNavigate();
-
-  console.log(pathname);
 
   return (
     <>
       <Row>
         <Col span={24}>
           <StyledHeader>
-            <GlobalOutlined />
-            <Paragraph style={{ marginBottom: "0"}}>Сменить язык на <a>english</a>?</Paragraph>
+            <GlobalOutlined/>
+            <Paragraph style={{marginBottom: "0"}}>Сменить язык на <a>english</a>?</Paragraph>
             <Dropdown overlay={menu}>
               <a onClick={e => e.preventDefault()}>
                 Русский
@@ -71,9 +66,10 @@ export const AuthLayout: FC<IProps> = ({children}) => {
           </LeftSideWrapper>
         </Col>
         <Col span={18}>
-          { pathname === '/login' ?
+          {pathname === '/login' ?
             <RegisterLink>
-              <Paragraph style={{marginBottom: "0"}}>Нет аккаунта? <a onClick={() => navigate('/register')}>Зарегестрироваться</a></Paragraph>
+              <Paragraph style={{marginBottom: "0"}}>Нет аккаунта? <a
+                onClick={() => navigate('/register')}>Зарегестрироваться</a></Paragraph>
             </RegisterLink>
             : null}
           <FormWrapper>
@@ -81,8 +77,6 @@ export const AuthLayout: FC<IProps> = ({children}) => {
           </FormWrapper>
         </Col>
       </Row>
-
-
     </>
   );
 };

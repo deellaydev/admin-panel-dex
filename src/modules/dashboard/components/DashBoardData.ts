@@ -1,11 +1,9 @@
-import {CustomersService} from "../../../api/customers/customersService";
-
 interface ICustomersDiagram {
   countEmployee: number,
   countSeekers: number
 }
 
-export const CustomersDiagram = ({countEmployee, countSeekers} : ICustomersDiagram) => {
+export const CustomersDiagram = ({countEmployee, countSeekers}: ICustomersDiagram) => {
 
   return [
     {
@@ -26,7 +24,7 @@ interface IInvoicesDiagram {
   countArchived: number
 }
 
-export const IInvoicesDiagram = ({countDue, countPayment, countNoPayment, countArchived} : IInvoicesDiagram) => {
+export const IInvoicesDiagram = ({countDue, countPayment, countNoPayment, countArchived}: IInvoicesDiagram) => {
 
   return [
     {

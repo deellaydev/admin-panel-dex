@@ -2,14 +2,14 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import {InvoicesService} from "../../api/invoices/invoicesService";
 import {IInvoice} from "../../api/dto/invoices";
 
-export const addNewInvoices = createAsyncThunk(
+export const addNewInvoicesAction = createAsyncThunk<IInvoice, IInvoice>(
   "invoices/new",
-  async (data: IInvoice) => {
+  async (data) => {
     return await new InvoicesService().addNewInvoice(JSON.stringify(data));
   }
 )
 
-export const getAllInvoices = createAsyncThunk(
+export const getAllInvoicesAction = createAsyncThunk(
   "invoices/getAll",
   async () => {
     return await new InvoicesService().getAllInvoices()

@@ -8,10 +8,10 @@ import {changeUserDataAction} from "../../settingsAsyncAction";
 
 export const AccountForm = () => {
 
-  const currentUser: IUserResponse = JSON.parse(localStorage.getItem("user") || '').user;
   const [form] = Form.useForm()
-
   const dispatch = useAppDispatch()
+
+  const currentUser: IUserResponse = JSON.parse(localStorage.getItem("user") || '').user;
 
   const handleChangeUserData = async (value: any) => {
     const updatedUser = {

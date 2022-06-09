@@ -25,11 +25,11 @@ export const EmployeeCardList: FC<IProps> = ({employee}) => {
         <Button size={"small"} type={"primary"} key={"deleteEmployee"}>Удалить сотрудника</Button>
       </Popconfirm>
     }>
-      <p><strong>ФИО сотрудника:</strong>  {employee.fio}</p>
-      <p><strong>Дата рождения:</strong>  {moment(new Date(employee?.birthDay)).calendar()}</p>
-      <p><strong>Номер телефона:</strong>  {employee.telNumber || 'Номер не указан'}</p>
-      <p><strong>Пол:</strong>  {employee.sex}</p>
-      <p><strong>Должность:</strong>  {employee.post}</p>
+      <p><strong>ФИО сотрудника:</strong> {employee.fio}</p>
+      <p><strong>Дата рождения:</strong> {moment(new Date(employee?.birthDay)).calendar()}</p>
+      <p><strong>Номер телефона:</strong> {employee.telNumber || 'Номер не указан'}</p>
+      <p><strong>Пол:</strong> {employee.sex}</p>
+      <p><strong>Должность:</strong> {employee.post}</p>
     </StyledCard>
   );
 };

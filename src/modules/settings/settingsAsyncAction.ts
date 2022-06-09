@@ -9,9 +9,9 @@ export const changePasswordAction = createAsyncThunk(
   }
 )
 
-export const changeUserDataAction = createAsyncThunk(
+export const changeUserDataAction = createAsyncThunk<IUserResponse, IUserResponse>(
   "settings/changeUserData",
-  async (user: IUserResponse) => {
+  async (user) => {
     return await new SettingsService().changeUserData(user)
   }
 )

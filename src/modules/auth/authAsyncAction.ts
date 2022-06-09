@@ -11,15 +11,16 @@ export const loginAction = createAsyncThunk<IUserResponse, {data: ILogin, naviga
       if (!response) {
         throw new Error("Такого пользователя не существует")
       }
+
       success();
       navigate();
       return response;
   }
 )
 
-export const registrationAction = createAsyncThunk<IUserResponse, IRegister>(
+export const registrationAction = createAsyncThunk<IUserResponse, {data: IRegister,  navigate: () => void, success: () => void}>(
   "auth/signUp",
-  async (data) => {
+  async ({data, navigate, success}) => {
     const registerData = {
       email: data.email,
       surname: data.surname,
@@ -31,7 +32,15 @@ export const registrationAction = createAsyncThunk<IUserResponse, IRegister>(
       sex: data.sex
     }
 
-    return await new AuthService().registrationService(JSON.stringify(registerData))
+    const response = await new AuthService().registrationService(JSON.stringify(registerData))
+
+    if (!response) {
+      throw new Error("Регистрация не успешна")
+    }
+
+    success();
+    navigate();
+    return response;
   }
 )
 

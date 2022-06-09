@@ -28,7 +28,7 @@ export const EmployeesCardWrapper: FC<IProps> = ({employees}) => {
 };
 const WrapperEmployeesCard = styled.div`
   display: none;
-  @media(max-width: 1000px){
+  @media (max-width: 1000px) {
     display: block;
   }
 `

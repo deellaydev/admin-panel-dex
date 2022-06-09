@@ -1,5 +1,5 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {IEmployee, IEmployeeResponse, ISeeker, ISeekerResponse} from "../../api/dto/customers";
+import {AnyAction, createSlice} from "@reduxjs/toolkit";
+import {IEmployeeResponse, ISeekerResponse} from "../../api/dto/customers";
 import {
   addNewSeekerAction,
   addNewEmployeeAction,
@@ -46,10 +46,6 @@ export const CustomersSlice = createSlice({
       state.error = undefined;
       state.seekers = action.payload
     });
-    builder.addCase(getAllSeekersAction.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
-    });
     builder.addCase(getAllEmployeesAction.pending, (state) => {
       state.loading = true;
       state.error = undefined;
@@ -58,10 +54,6 @@ export const CustomersSlice = createSlice({
       state.loading = false;
       state.error = undefined;
       state.employees = action.payload
-    });
-    builder.addCase(getAllEmployeesAction.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
     });
     builder.addCase(addNewSeekerAction.pending, (state) => {
       state.loading = true;
@@ -72,10 +64,6 @@ export const CustomersSlice = createSlice({
       state.error = undefined;
       state.seekers.push(action.payload)
     });
-    builder.addCase(addNewSeekerAction.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
-    });
     builder.addCase(addNewEmployeeAction.pending, (state) => {
       state.loading = true;
       state.error = undefined;
@@ -85,10 +73,6 @@ export const CustomersSlice = createSlice({
       state.error = undefined;
       state.employees.push(action.payload)
     });
-    builder.addCase(addNewEmployeeAction.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
-    });
     builder.addCase(deleteEmployeeAction.pending, (state) => {
       state.loading = true;
       state.error = undefined;
@@ -97,12 +81,24 @@ export const CustomersSlice = createSlice({
       state.loading = false;
       state.error = undefined;
     });
-    builder.addCase(deleteEmployeeAction.rejected, (state, action) => {
+    builder.addCase(deleteSeekerAction.pending, (state) => {
+      state.loading = true;
+      state.error = undefined;
+    });
+    builder.addCase(deleteSeekerAction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.error = undefined;
+    });
+    builder.addMatcher(isError, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     })
   })
 })
+
+function isError(action: AnyAction) {
+  return action.type.endsWith('rejected')
+}
 
 export const {deleteEmployee, deleteSeeker} = CustomersSlice.actions
 export default CustomersSlice.reducer

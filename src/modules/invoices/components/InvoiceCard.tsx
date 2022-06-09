@@ -26,7 +26,11 @@ export const InvoiceCard: FC<IProps> = ({invoice, isModalVisible, setIsModalVisi
   }
 
   const handleDeleteInvoice = async () => {
-    await dispatch(deleteInvoiceAction({id: invoice?.id || -1, success: () => message.success("Счёт удалён"), cb: () => dispatch(deleteInvoice(invoice?.id))}))
+    await dispatch(deleteInvoiceAction({
+      id: invoice?.id || -1,
+      success: () => message.success("Счёт удалён"),
+      cb: () => dispatch(deleteInvoice(invoice?.id))
+    }))
     setIsModalVisible(false)
   }
 

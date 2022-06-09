@@ -4,7 +4,6 @@ import {Tabs} from "antd";
 import {DashboardHeader} from "../../../common/components/DashBoard/DashboardHeader";
 import {TabWrapperComponent} from "../../../common/components/DashBoard/TabWrapperComponent";
 import {AccountForm} from "./account/AccountForm";
-import {ChangePassword} from "./account/ChangePassword";
 
 export const Settings = () => {
 

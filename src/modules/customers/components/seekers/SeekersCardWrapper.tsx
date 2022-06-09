@@ -1,8 +1,7 @@
 import React, {FC} from 'react';
 import {List} from "antd";
-import {EmployeeCardList} from "../employees/EmployeeCardList";
 import styled from "styled-components";
-import {IEmployeeResponse, ISeekerResponse} from "../../../../api/dto/customers";
+import {ISeekerResponse} from "../../../../api/dto/customers";
 import {SeekerCardList} from "./SeekerCardList";
 
 interface IProps {
@@ -28,7 +27,7 @@ export const SeekersCardWrapper: FC<IProps> = ({seekers}) => {
 };
 const WrapperSeekersCard = styled.div`
   display: none;
-  @media(max-width: 1000px){
+  @media (max-width: 1000px) {
     display: block;
   }
 `

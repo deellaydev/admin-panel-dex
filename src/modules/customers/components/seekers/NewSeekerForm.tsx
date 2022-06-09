@@ -4,7 +4,7 @@ import Title from "antd/lib/typography/Title";
 import {Form, Input, Select, Button, Modal} from "antd";
 import {useAppDispatch} from "../../../../store/hooks/hooks";
 import {IEmployee} from "../../../../api/dto/customers";
-import {addNewSeekerAction, getAllSeekersAction} from "../../customersAsyncAction";
+import {addNewSeekerAction} from "../../customersAsyncAction";
 
 interface IProps {
   isModalVisible: boolean;
@@ -14,8 +14,8 @@ interface IProps {
 export const NewSeekerForm: FC<IProps> = ({isModalVisible, setIsModalVisible}) => {
 
   const {Option} = Select
-  const [form] = Form.useForm()
 
+  const [form] = Form.useForm()
   const dispatch = useAppDispatch();
 
   const getValues = async (data: IEmployee) => {

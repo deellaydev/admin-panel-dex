@@ -10,7 +10,6 @@ interface IProps {
 
 export const InvoicesCardWrapper: FC<IProps> = ({invoices}) => {
 
-
   return (
     <WrapperInvoicesCard>
       <List
@@ -20,16 +19,16 @@ export const InvoicesCardWrapper: FC<IProps> = ({invoices}) => {
           pageSize: 3,
         }}
         dataSource={invoices}
-      renderItem={(item, i) => (
-        <InvoiceCardList invoice={item}/>
-      )}/>
+        renderItem={(item, i) => (
+          <InvoiceCardList invoice={item}/>
+        )}/>
     </WrapperInvoicesCard>
   );
 };
 
 const WrapperInvoicesCard = styled.div`
   display: none;
-  @media(max-width: 1000px){
+  @media (max-width: 1000px) {
     display: block;
   }
 `

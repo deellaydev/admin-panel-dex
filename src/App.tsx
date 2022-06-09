@@ -33,17 +33,14 @@ export const App = () => {
 
   useEffect(() => {
     if (authError) {
-      message.error(authError);
+      message.error(authError).then();
       dispatch(clearError())
-    }
-    else if (customersError) {
-      message.error(customersError)
-    }
-    else if (invoicesError) {
-      message.error(invoicesError)
-    }
-    else if (settingsError) {
-      message.error(settingsError)
+    } else if (customersError) {
+      message.error(customersError).then()
+    } else if (invoicesError) {
+      message.error(invoicesError).then()
+    } else if (settingsError) {
+      message.error(settingsError).then()
     }
   }, [authError, customersError, invoicesError, settingsError])
 
