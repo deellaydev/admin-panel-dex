@@ -80,5 +80,5 @@ export const LoginForm = () => {
 };
 
 const FormWrapper = styled.div`
-  width: 450px;
+  width: 450px
 `
