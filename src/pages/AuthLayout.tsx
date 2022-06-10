@@ -4,6 +4,7 @@ import {Col, Dropdown, Menu, Row, Typography} from "antd";
 import {GlobalOutlined} from "@ant-design/icons";
 import artwork from "../assets/icons/artwork.png";
 import {useLocation, useNavigate} from 'react-router-dom'
+import {useTranslation} from "react-i18next";
 
 const menu = (
   <Menu

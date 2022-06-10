@@ -19,6 +19,7 @@ export const Reports = () => {
       dispatch(getReportsAction())
       timerId = setTimeout(request, 10000)
     }, 0)
+    return (() => clearTimeout(timerId))
   }, [])
 
   return (
