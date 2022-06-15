@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from "styled-components";
 import Title from "antd/lib/typography/Title";
 import {Typography, Form, Input, Select, Checkbox, Button} from "antd";
@@ -21,6 +21,10 @@ export const RegisterForm = () => {
       navigate: () => navigate('/')
     }))
   }
+
+  useEffect(() => {
+    document.title = "Register"
+  })
 
   return (
     <FormWrapper>

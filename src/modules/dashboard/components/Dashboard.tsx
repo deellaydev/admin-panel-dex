@@ -15,6 +15,7 @@ export const Dashboard = () => {
   const {invoices} = useAppSelector((state) => state.invoicesReducer)
 
   useEffect(() => {
+    document.title = "Dashboard"
     dispatch(getAllEmployeesAction())
     dispatch(getAllSeekersAction())
     dispatch(getAllInvoicesAction())

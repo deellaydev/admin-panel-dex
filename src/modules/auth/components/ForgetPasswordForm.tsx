@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from "styled-components";
 import {Button, Form, Input, Typography} from "antd";
 import {useNavigate} from "react-router-dom";
@@ -22,6 +22,10 @@ export const ForgetPasswordForm = () => {
       navigate: ()  => navigate('/restorePasswordSuccess')
     }))
   }
+
+  useEffect(() => {
+    document.title = "Forget password"
+  })
 
   return (
     <FormWrapper>

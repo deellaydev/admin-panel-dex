@@ -2,7 +2,7 @@
   "users": [
     {
       "email": "admin@gmail.com",
-      "password": "$2a$10$h2bOUha0uPdEsj561wdW1.KSGt1C7jDBaEFaZ956zuS193/Ms0Fpa",
+      "password": "$2a$10$qMWlvGtd7XbpYZ23ElslcuUdnktth56w8OTVSG5k2wY9Af7ssYKri",
       "surname": "Демян",
       "name": "Владислав",
       "patronymic": "Александрович",
@@ -37,7 +37,7 @@
       "paymentDate": 1656501126529,
       "isPayment": true,
       "isDue": false,
-      "isArchived": false,
+      "isArchived": true,
       "id": 3
     },
     {

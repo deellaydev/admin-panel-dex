@@ -23,6 +23,8 @@ export const AccountForm = () => {
       telNumber: form.getFieldValue('telNumber'),
       password: form.getFieldValue('password')
     }
+    // successNotification('Вы успешно изменили данные').then(() => alert(`${JSON.stringify(updatedUser, null,2)}`))
+
     await dispatch(changeUserDataAction(updatedUser))
   }
 

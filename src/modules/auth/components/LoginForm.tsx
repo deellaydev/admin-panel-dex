@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Title from "antd/lib/typography/Title";
 import {Button, Checkbox, Form, Input,} from "antd";
 import {ILogin} from "../../../api/dto/auth";
@@ -18,6 +18,10 @@ export const LoginForm = () => {
       navigate: () => navigate('/')
     }))
   }
+
+  useEffect(() => {
+    document.title = "Login"
+  })
 
   return (
     <FormWrapper>

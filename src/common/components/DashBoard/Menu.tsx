@@ -6,7 +6,6 @@ import {
   PieChartOutlined,
   RiseOutlined,
   SettingOutlined,
-  StockOutlined,
   UserOutlined
 } from "@ant-design/icons";
 import {useLocation, useNavigate} from "react-router-dom";
@@ -39,7 +38,7 @@ const items: MenuProps['items'] = [
   ]),
   getItem('Customers', 'customers', <UserOutlined/>),
   getItem('Settings', 'settings', <SettingOutlined/>),
-  getItem('Help & Contact', 'help', <InfoCircleOutlined />),
+  getItem('Help & Contact', 'contact', <InfoCircleOutlined />),
 ];
 
 export const MenuComponent = () => {
@@ -49,7 +48,7 @@ export const MenuComponent = () => {
 
   const handleNavigate = (pathArray: string[]) => {
     let path = '';
-
+    document.title = `${pathArray[0].slice(0,1).toUpperCase() + pathArray[0].slice(1)}`
     if (pathArray[0] === 'dashboard'){
       navigate('/');
       return;
@@ -71,7 +70,7 @@ export const MenuComponent = () => {
         paddingTop: "60px",
         width: "100%",
         boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.15)",
-        height: "100%"
+        height: "100vh"
       }}
       onClick={(e) => handleNavigate(e.keyPath)}
     />

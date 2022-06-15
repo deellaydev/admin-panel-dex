@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from "styled-components";
 import {Button, Form, Input, Typography} from "antd";
 
@@ -10,6 +10,10 @@ interface IChangePassword {
 export const NewPasswordForm = () => {
 
   const { Title } = Typography
+
+  useEffect(() => {
+    document.title = "New password"
+  })
 
   return (
     <FormWrapper>

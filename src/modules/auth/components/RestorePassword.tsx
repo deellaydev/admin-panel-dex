@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from "styled-components";
 import {Button, Typography} from "antd";
 import {useNavigate} from "react-router-dom";
@@ -14,6 +14,10 @@ export const RestorePassword = () => {
     localStorage.removeItem("restorePasswordUser")
     navigate('/');
   }
+
+  useEffect(() => {
+    document.title = "Restore password"
+  })
 
   return (
     <FormWrapper>

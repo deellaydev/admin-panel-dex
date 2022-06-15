@@ -18,6 +18,9 @@ import {Invoices} from "./modules/invoices/components/Invoices";
 import {Customers} from "./modules/customers/components/Customers";
 import {Settings} from "./modules/settings/components/Settings";
 import {Reports} from "./modules/reports/components/Reports";
+import {Contact} from "./modules/contact/components/Contact";
+import {Templates} from "./modules/templates/components/Templates";
+import {Drafts} from "./modules/drafts/components/Drafts";
 
 export const App = () => {
 
@@ -29,11 +32,11 @@ export const App = () => {
           <Route path={''} element={<Dashboard/>}/>
           <Route path={'/reports'} element={<Reports/>}/>
           <Route path={'/documents/invoices'} element={<Invoices/>}/>
-          <Route path={'/documents/drafts'} element={<Reports/>}/>
-          <Route path={'/documents/templates'} element={<Reports/>}/>
+          <Route path={'/documents/drafts'} element={<Drafts/>}/>
+          <Route path={'/documents/templates'} element={<Templates/>}/>
           <Route path={'/customers'} element={<Customers/>}/>
           <Route path={'/settings'} element={<Settings/>}/>
-          <Route path={'/help'} element={<Reports/>}/>
+          <Route path={'/contact'} element={<Contact/>}/>
         </Route>
         <Route path={'/login'}
                element={<ProtectedAuthRoute><AuthLayout><LoginForm/></AuthLayout></ProtectedAuthRoute>}/>
