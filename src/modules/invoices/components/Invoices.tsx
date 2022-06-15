@@ -55,7 +55,7 @@ export const Invoices = () => {
   const {loading, invoices} = useAppSelector((state) => state.invoicesReducer)
   const dispatch = useAppDispatch();
 
-  const [isModalInvoiceVisible, setIsModalInvoiceVisible] = useState(false);
+  const [isModalInvoiceVisible, setIsModalInvoiceVisible] = useState<boolean>(false);
   const [modalInvoiceData, setModalInvoiceData] = useState<IInvoice>();
 
   const showModalInvoice = (invoice: IInvoice) => {
@@ -63,7 +63,7 @@ export const Invoices = () => {
     setModalInvoiceData(invoice)
   };
 
-  const [isModalAddInvoiceVisible, setIsModalAddInvoiceVisible] = useState(false);
+  const [isModalAddInvoiceVisible, setIsModalAddInvoiceVisible] = useState<boolean>(false);
 
   const showAddInvoiceModal = () => {
     setIsModalAddInvoiceVisible(true);

@@ -1,6 +1,17 @@
 {
   "auth": {
     "loginLabel": "Email",
-    "passwordLabel": "Password"
+    "passwordLabel": "Password",
+    "rememberLabel": "Remember me",
+    "forgetPassword": "Forget password?",
+    "noAccount": "No account?",
+    "register": "Register",
+    "greetingText": "Log in Staff Pro",
+    "changeLanguage": "Change the language to",
+    "currentLanguage": "English",
+    "changeOn": "Русский",
+    "requirement": "Required field",
+    "invalidMail": "Invalid mail format",
+    "loginButton": "Log in"
   }
 }

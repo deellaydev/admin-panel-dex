@@ -1,6 +1,17 @@
 {
   "auth": {
     "loginLabel": "Email",
-    "passwordLabel": "Пароль"
+    "passwordLabel": "Пароль",
+    "rememberLabel": "Запомнить меня",
+    "forgetPassword": "Забыли пароль?",
+    "noAccount": "Нет аккаунта?",
+    "register": "Зарегестрироваться",
+    "greetingText": "Войти в Staff Pro",
+    "changeLanguage": "Сменить язык на",
+    "currentLanguage": "Русский",
+    "changeOn": "English",
+    "requirement": "Обязательное поле",
+    "invalidMail": "Неверный формат почты",
+    "loginButton": "Войти"
   }
 }

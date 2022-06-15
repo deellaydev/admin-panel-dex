@@ -1,28 +1,11 @@
 import React, {FC} from 'react';
 import styled from "styled-components";
-import {Col, Dropdown, Menu, Row, Typography} from "antd";
+import {Col, Dropdown, Menu, MenuProps, Row, Typography} from "antd";
 import {GlobalOutlined} from "@ant-design/icons";
 import artwork from "../assets/icons/artwork.png";
 import {useLocation, useNavigate} from 'react-router-dom'
+import i18n from "i18next"
 import {useTranslation} from "react-i18next";
-
-const menu = (
-  <Menu
-    items={[
-      {
-        key: '1',
-        label: (
-          <a>Русский</a>
-        )
-      },
-      {
-        key: '2',
-        label: (
-          <a>English</a>
-        )
-      }
-    ]}/>
-)
 
 interface IProps {
   children: JSX.Element
@@ -35,16 +18,42 @@ export const AuthLayout: FC<IProps> = ({children}) => {
   const {pathname} = useLocation();
   const navigate = useNavigate();
 
+  const {t} = useTranslation()
+
+  const menuClick: MenuProps['onClick'] = ({key}) => {
+    i18n.changeLanguage(key).then()
+  }
+
+  const menu = (
+    <Menu
+      onClick={menuClick}
+      items={[
+        {
+          key: 'ru',
+          label: (
+            <a>Русский</a>
+          )
+        },
+        {
+          key: 'en',
+          label: (
+            <a>English</a>
+          )
+        }
+      ]}/>
+  )
+
   return (
     <>
       <Row>
         <Col span={24}>
           <StyledHeader>
             <GlobalOutlined/>
-            <Paragraph style={{marginBottom: "0"}}>Сменить язык на <a>english</a>?</Paragraph>
+            <Paragraph style={{marginBottom: "0"}}>{t('auth.changeLanguage')} <a
+              onClick={() => i18n.language === 'ru' ? i18n.changeLanguage("en") : i18n.changeLanguage("ru")}>{t('auth.changeOn')}</a>?</Paragraph>
             <Dropdown overlay={menu}>
               <a onClick={e => e.preventDefault()}>
-                Русский
+                {t('auth.currentLanguage')}
               </a>
             </Dropdown>
           </StyledHeader>
@@ -69,8 +78,8 @@ export const AuthLayout: FC<IProps> = ({children}) => {
         <Col span={18}>
           {pathname === '/login' ?
             <RegisterLink>
-              <Paragraph style={{marginBottom: "0"}}>Нет аккаунта? <a
-                onClick={() => navigate('/register')}>Зарегестрироваться</a></Paragraph>
+              <Paragraph style={{marginBottom: "0"}}>{t('auth.noAccount')} <a
+                onClick={() => navigate('/register')}>{t('auth.register')}</a></Paragraph>
             </RegisterLink>
             : null}
           <FormWrapper>

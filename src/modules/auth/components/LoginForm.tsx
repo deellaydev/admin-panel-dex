@@ -6,11 +6,13 @@ import styled from "styled-components";
 import {useAppDispatch} from "../../../store/reduxHooks";
 import {loginAction} from "../authAsyncAction";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 export const LoginForm = () => {
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const {t} = useTranslation()
 
   const getValues = async ({email, password}: ILogin) => {
     await dispatch(loginAction({
@@ -25,7 +27,7 @@ export const LoginForm = () => {
 
   return (
     <FormWrapper>
-      <Title>Войти в Staff Pro</Title>
+      <Title>{t('auth.greetingText')}</Title>
       <Form
         name={"login"}
         labelCol={{span: 8}}
@@ -36,25 +38,25 @@ export const LoginForm = () => {
         }}
         onFinish={getValues}>
         <Form.Item
-          label={"Эл.адрес"}
+          label={t('auth.loginLabel')}
           name={"email"}
           rules={[{
             required: true,
-            message: "Обязательное поле"
+            message: t('auth.requirement')
           },
             {
               type: "email",
-              message: "Неверный формат почты"
+              message: t('auth.invalidMail')
             }
           ]}>
           <Input size={"large"}/>
         </Form.Item>
         <Form.Item
-          label={"Пароль"}
+          label={t('auth.passwordLabel')}
           name={"password"}
           rules={[{
             required: true,
-            message: "Обязательное поле"
+            message: t('auth.requirement')
           }]}>
           <Input.Password size={"large"}/>
         </Form.Item>
@@ -67,16 +69,16 @@ export const LoginForm = () => {
               name={"isRemember"}
               valuePropName={"checked"}
               noStyle>
-              <Checkbox>Запомнить меня</Checkbox>
+              <Checkbox>{t('auth.rememberLabel')}</Checkbox>
             </Form.Item>
 
             <a onClick={() => navigate('/restorePassword')}>
-              Забыли пароль?
+              {t('auth.forgetPassword')}
             </a>
           </div>
         </Form.Item>
         <Form.Item>
-          <Button type={"primary"} size={"large"} htmlType={"submit"}>Войти</Button>
+          <Button type={"primary"} size={"large"} htmlType={"submit"}>{t('auth.loginButton')}</Button>
         </Form.Item>
       </Form>
     </FormWrapper>
